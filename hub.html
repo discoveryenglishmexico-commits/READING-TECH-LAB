@@ -1,3 +1,15 @@
+# APEX Hub - Centro de Entrenamiento Cognitivo (Código Fuente)
+
+Este archivo contiene el código fuente completo de la tercera página de tu ecosistema <strong>APEX Kinetix</strong>: El <strong>APEX Hub</strong> (antigua Academia).
+
+Aquí es donde tus estudiantes accederán a las lecciones digitales basadas en tus Tomos, entenderán la filosofía de la <strong>Soberanía de Atención</strong> y resolverán tests interactivos de comprensión que desbloquearán insignias y actualizarán su perfil automáticamente.
+
+---
+
+### Código Completo (HTML/JS)
+Guarda este código en un archivo llamado <strong>`hub.html`</strong> en tu computadora y súbelo a tu repositorio de GitHub junto a `index.html` y `simulador.html`.
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -178,21 +190,25 @@
 
         </div>
 
-        <!-- Menú de Navegación Inferior Móvil (Fijo en celulares) -->
-        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 h-16 flex items-center justify-around px-4 shadow-2xl z-30">
-            <a href="index.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-apex-blue transition-colors">
-                <i class="fas fa-chart-pie text-lg"></i>
-                <span class="text-[9px] font-bold uppercase">Métricas</span>
-            </a>
-            <a href="simulador.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-apex-blue transition-colors">
-                <i class="fas fa-tachometer-alt text-lg"></i>
-                <span class="text-[9px] font-bold uppercase">Simulador</span>
-            </a>
-            <a href="hub.html" class="flex flex-col items-center gap-1 text-apex-blue dark:text-apex-cyan transition-colors">
-                <i class="fas fa-book-open text-lg"></i>
-                <span class="text-[9px] font-bold uppercase">Hub</span>
-            </a>
-        </nav>
+    <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 h-16 flex md:hidden items-center justify-around px-4 z-50 theme-transition shadow-2xl">
+        <a href="index.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i class="fas fa-chart-line text-lg"></i>
+            <span class="text-[9px] font-medium">Métricas</span>
+        </a>
+        <a href="simulador.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i class="fas fa-eye text-lg"></i>
+            <span class="text-[9px] font-medium">Simulador</span>
+        </a>
+        <a href="hub.html" class="flex flex-col items-center gap-1 text-apex-blue dark:text-apex-cyan">
+            <i class="fas fa-book-open text-lg"></i>
+            <span class="text-[9px] font-bold">Hub</span>
+        </a>
+        <a href="lexico.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i class="fas fa-spell-check text-lg"></i>
+            <span class="text-[9px] font-medium">Léxico</span>
+        </a>
+    </nav>
     </main>
 
     <!-- Modal de Evaluación (Quiz Interactivos) -->
