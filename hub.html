@@ -10,14 +10,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class', // Habilitado modo oscuro por clases
             theme: {
                 extend: {
                     colors: {
                         apex: {
                             blue: '#00529B',
                             cyan: '#00A4E4',
-                            dark: '#1E293B',
-                            slate: '#0F172A'
+                            dark: '#0F172A',
+                            slate: '#1E293B',
+                            lightBg: '#F8FAFC'
                         }
                     }
                 }
@@ -134,7 +136,7 @@
                             <span id="badge-status-2" class="text-xs text-slate-400"><i class="far fa-circle"></i></span>
                         </div>
                         <h5 class="font-bold text-slate-800 dark:text-white mt-3">Biomecánica Ocular</h5>
-                        <p class="text-xs text-slate-400 mt-1">Entrenamiento físico con los flexores ópticos y técnicas para expandir la visión periférica.</p>
+                        <p class="text-xs text-slate-400 mt-1">Entrenamiento físico con los eye trackers y técnicas para expandir la visión periférica.</p>
                     </div>
 
                     <!-- Tarjeta Módulo 3 -->
@@ -519,14 +521,14 @@
             if (allCorrect) {
                 localStorage.setItem(`apex_badge_${activeQuizModule}`, 'true');
 
-                // Actualizar racha y progreso
-                let streak = parseInt(localStorage.getItem('dalpa_racha') || 1);
-                localStorage.setItem('dalpa_racha', streak + 1);
+                // Actualizar Focus Streak y progreso
+                let streak = parseInt(localStorage.getItem('apex_focus_streak') || 0);
+                localStorage.setItem('apex_focus_streak', parseInt(streak) + 1);
 
                 let lessonsCompleted = parseInt(localStorage.getItem('apex_lessons_completed') || 0);
                 localStorage.setItem('apex_lessons_completed', lessonsCompleted + 1);
 
-                alert("🎉 ¡Test aprobado a la perfección! Has liberado una nueva Insignia de Control y consolidado tu racha de enfoque.");
+                alert("🎉 ¡Test aprobado a la perfección! Has liberado una nueva Insignia de Control y consolidado tu Focus Streak.");
                 closeQuiz();
                 loadProgress();
             } else {
@@ -534,35 +536,34 @@
             }
         });
 
-        // --- MODO OSCURO ---
-        themeToggle.addEventListener('click', () => {
-            const isDark = bodyContainer.classList.contains('dark');
+        // --- MODO OSCURO SINCRONIZADO ---
+        const htmlElement = document.documentElement;
+
+        function aplicarModoOscuro(isDark) {
             if (isDark) {
-                bodyContainer.classList.remove('dark');
-                bodyContainer.classList.add('bg-slate-50');
-                localStorage.setItem('apex_theme', 'light');
-                themeIcon.className = "fas fa-moon text-xl text-gray-400";
-            } else {
-                bodyContainer.classList.add('dark');
-                bodyContainer.classList.remove('bg-slate-50');
-                localStorage.setItem('apex_theme', 'dark');
+                htmlElement.classList.add('dark');
                 themeIcon.className = "fas fa-sun text-xl text-yellow-400";
+                localStorage.setItem('apex_dark_mode', 'enabled');
+            } else {
+                htmlElement.classList.remove('dark');
+                themeIcon.className = "fas fa-moon text-xl text-gray-400";
+                localStorage.setItem('apex_dark_mode', 'disabled');
             }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = htmlElement.classList.contains('dark');
+            aplicarModoOscuro(!isDark);
         });
 
         function applySavedTheme() {
-            const savedTheme = localStorage.getItem('apex_theme') || 'light';
-            if (savedTheme === 'dark') {
-                bodyContainer.classList.add('dark');
-                bodyContainer.classList.remove('bg-slate-50');
-                themeIcon.className = "fas fa-sun text-xl text-yellow-400";
+            const savedSetting = localStorage.getItem('apex_dark_mode');
+            if (savedSetting === 'enabled') {
+                aplicarModoOscuro(true);
             } else {
-                bodyContainer.classList.remove('dark');
-                bodyContainer.classList.add('bg-slate-50');
-                themeIcon.className = "fas fa-moon text-xl text-gray-400";
+                aplicarModoOscuro(false);
             }
         }
     </script>
 </body>
 </html>
-
