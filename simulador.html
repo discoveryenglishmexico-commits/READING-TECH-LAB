@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DALPA - Simulador Flexor Mental Tech</title>
-    <!-- Tailwind CSS para el diseño premium -->
+    <title>APEX Kinetix - Simulador Óptico</title>
+    <!-- Tailwind CSS para diseño fluido -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome para los íconos -->
+    <!-- FontAwesome para iconografía -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        dalpa: {
+                        apex: {
                             blue: '#00529B',
                             cyan: '#00A4E4',
-                            dark: '#1E293B',
+                            dark: '#0F172A',
+                            slate: '#1E293B',
                             lightBg: '#F8FAFC'
                         }
                     }
@@ -25,103 +27,126 @@
         }
     </script>
     <style>
-        /* Animaciones para transiciones fluidas */
-        .transition-all-300 {
-            transition: all 0.3s ease;
+        .theme-transition {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
-        /* Resaltado del foco RSVP */
         .rsvp-word {
             font-family: 'Courier New', Courier, monospace;
         }
         .focus-letter {
             color: #00A4E4;
-            font-weight: 800;
+            font-weight: 900;
         }
     </style>
 </head>
-<body class="bg-gray-50 flex h-screen overflow-hidden text-gray-800 font-sans transition-all-300" id="body-container">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans theme-transition min-h-screen flex flex-col md:flex-row pb-20 md:pb-0" id="body-container">
 
-    <!-- Barra Lateral (Menú) -->
-    <aside class="w-64 bg-dalpa-dark text-white flex flex-col hidden md:flex">
-        <div class="p-6 text-center border-b border-gray-700">
-            <h1 class="text-3xl font-black text-dalpa-cyan tracking-widest">DALPA</h1>
-            <p class="text-xs text-gray-400 mt-1 uppercase tracking-widest">Mental Tech</p>
+    <!-- BARRA LATERAL (Escritorio - Desktop) -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0">
+        <div class="p-6 text-center border-b border-slate-800">
+            <h1 class="text-3xl font-black text-apex-cyan tracking-wider">APEX</h1>
+            <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">Kinetix System</p>
         </div>
-        <nav class="flex-1 px-4 py-6 space-y-3">
-            <a href="index.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 rounded-xl text-gray-300 font-medium transition-colors"><i class="fas fa-chart-pie w-5"></i> Mi Rendimiento</a>
-            <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 bg-dalpa-blue rounded-xl text-white font-medium shadow-md transition-colors"><i class="fas fa-tachometer-alt w-5"></i> Simulador Flexor</a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 rounded-xl text-gray-300 font-medium transition-colors"><i class="fas fa-book-open w-5"></i> Academia y Tomos</a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 rounded-xl text-gray-300 font-medium transition-colors"><i class="fas fa-brain w-5"></i> Vocabulario</a>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
+                <i class="fas fa-chart-line w-5"></i> Métricas APEX
+            </a>
+            <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 bg-apex-blue rounded-xl text-white font-semibold shadow-lg shadow-apex-blue/20 transition-all">
+                <i class="fas fa-eye w-5 text-apex-cyan"></i> Simulador Óptico
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
+                <i class="fas fa-dumbbell w-5"></i> Eye Tracker
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
+                <i class="fas fa-cubes w-5"></i> Apex Hub
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
+                <i class="fas fa-spell-check w-5"></i> Léxico
+            </a>
         </nav>
-        <div class="p-4 border-t border-gray-700">
-            <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-lg text-gray-400 text-sm transition-colors"><i class="fas fa-sign-out-alt w-5"></i> Cerrar Sesión</a>
+        <div class="p-4 border-t border-slate-800">
+            <p class="text-xs text-slate-500 text-center py-2">No es velocidad. Es soberanía.</p>
         </div>
     </aside>
 
-    <!-- Contenido Principal -->
-    <main class="flex-1 flex flex-col h-screen overflow-y-auto">
-        <!-- Encabezado -->
-        <header class="bg-white shadow-sm h-16 flex items-center justify-between px-8 z-10">
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-h-screen">
+        <!-- Encabezado superior -->
+        <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 h-16 flex items-center justify-between px-6 md:px-8 shrink-0 theme-transition">
             <div class="flex items-center gap-4">
-                <a href="index.html" class="md:hidden text-gray-600 hover:text-dalpa-blue"><i class="fas fa-arrow-left text-xl"></i></a>
-                <h2 class="text-xl font-bold text-gray-800">Simulador Flexor Interactivo</h2>
+                <a href="index.html" class="md:hidden text-slate-600 dark:text-slate-400 hover:text-apex-blue"><i class="fas fa-arrow-left text-xl"></i></a>
+                <h2 class="text-lg font-bold text-slate-800 dark:text-white">Simulador Óptico APEX</h2>
             </div>
-            <div class="flex items-center gap-5">
-                <button id="theme-toggle" class="text-gray-400 hover:text-dalpa-blue transition-colors"><i class="fas fa-moon text-xl" id="theme-icon"></i></button>
-                <div class="flex items-center gap-3 border-l pl-5">
+
+            <div class="flex items-center gap-4">
+                <!-- Botón de Modo Oscuro Real -->
+                <button id="dark-mode-toggle" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl flex items-center justify-center text-slate-500 dark:text-yellow-400 transition-colors">
+                    <i class="fas fa-moon text-lg" id="dark-icon"></i>
+                </button>
+
+                <!-- Perfil -->
+                <div class="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-4">
                     <div class="text-right hidden sm:block">
-                        <p class="text-sm font-bold text-gray-800">Estudiante Premium</p>
-                        <p class="text-xs text-gray-500">Sesión Activa</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Membresía Activa</p>
+                        <p class="text-sm font-black text-apex-blue dark:text-apex-cyan">Sapien Focus Premium</p>
                     </div>
-                    <div class="w-10 h-10 bg-dalpa-cyan rounded-full flex items-center justify-center text-white font-bold shadow-md">EP</div>
+                    <div class="w-10 h-10 bg-gradient-to-tr from-apex-blue to-apex-cyan rounded-xl flex items-center justify-center text-white font-extrabold shadow-md shadow-apex-cyan/20">
+                        SF
+                    </div>
                 </div>
             </div>
         </header>
 
-        <div class="p-4 md:p-8 max-w-5xl mx-auto w-full space-y-6">
-            <!-- Selector de Modos del Método -->
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-wrap gap-4 items-center justify-between">
+        <!-- Zona de Trabajo del Simulador -->
+        <main class="p-4 md:p-8 max-w-5xl w-full mx-auto space-y-6">
+
+            <!-- Selector de Modos de Entrenamiento -->
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-wrap gap-4 items-center justify-between theme-transition">
                 <div>
-                    <h3 class="font-bold text-gray-800 text-lg">Modo de Entrenamiento</h3>
-                    <p class="text-xs text-gray-500">Selecciona el flexor o tecnología que deseas ejercitar hoy</p>
+                    <h3 class="font-bold text-slate-800 dark:text-white text-base">Modo de Entrenamiento</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Selecciona la dinámica biomecánica para ejercitar hoy</p>
                 </div>
-                <div class="flex bg-gray-100 p-1 rounded-xl">
-                    <button id="btn-mode-rsvp" class="px-4 py-2 rounded-lg font-bold text-sm transition-all bg-white text-dalpa-blue shadow-sm">
-                        <i class="fas fa-bolt mr-1"></i> Modo RSVP (Foco)
+                <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl transition-colors">
+                    <button id="btn-mode-rsvp" class="px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm">
+                        <i class="fas fa-bolt mr-1"></i> Lector RSVP (Foco)
                     </button>
-                    <button id="btn-mode-column" class="px-4 py-2 rounded-lg font-bold text-sm transition-all text-gray-600 hover:text-dalpa-blue">
-                        <i class="fas fa-columns mr-1"></i> Flexor Columnas
+                    <button id="btn-mode-column" class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue">
+                        <i class="fas fa-columns mr-1"></i> Gimnasia Columnas
                     </button>
                 </div>
             </div>
 
-            <!-- Caja Principal del Simulador de Lectura -->
-            <div class="bg-white rounded-3xl border border-gray-100 shadow-lg p-6 md:p-10 flex flex-col items-center justify-center min-h-[350px] relative overflow-hidden" id="reading-card">
+            <!-- Caja Principal de la Pantalla del Simulador -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl p-6 md:p-10 flex flex-col items-center justify-center min-h-[350px] relative overflow-hidden theme-transition" id="reading-card">
 
-                <!-- Pantalla de RSVP -->
+                <!-- PANTALLA RSVP -->
                 <div id="rsvp-screen" class="flex flex-col items-center justify-center w-full">
-                    <!-- Guías visuales de centrado -->
-                    <div class="w-1 h-8 bg-dalpa-cyan opacity-40 mb-4 rounded-full"></div>
-                    <div class="text-4xl md:text-6xl font-extrabold tracking-wide rsvp-word py-6 select-none text-center" id="rsvp-word-container">
-                        <span class="text-gray-400">DALPA</span><span class="focus-letter">L</span><span class="text-gray-400">ive</span>
+                    <div class="w-1.5 h-8 bg-apex-cyan opacity-40 mb-4 rounded-full"></div>
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-black tracking-wide rsvp-word py-6 select-none text-center" id="rsvp-word-container">
+                        <span class="text-slate-400 dark:text-slate-600">APEX</span><span class="focus-letter">O</span><span class="text-slate-400 dark:text-slate-600">ptix</span>
                     </div>
-                    <div class="w-1 h-8 bg-dalpa-cyan opacity-40 mt-4 rounded-full"></div>
+                    <div class="w-1.5 h-8 bg-apex-cyan opacity-40 mt-4 rounded-full"></div>
                 </div>
 
-                <!-- Pantalla de Flexor Columnas (Se activa al cambiar modo) -->
+                <!-- PANTALLA DE GIMNASIA COLUMNAS (CORREGIDO BUG DE PALABRAS ENCONADAS) -->
                 <div id="column-screen" class="hidden w-full max-w-xl mx-auto flex flex-col items-center justify-center py-4">
-                    <p class="text-xs text-gray-400 mb-4 text-center font-semibold uppercase tracking-widest">
-                        Flexor 2: Fija la vista en el espacio central. Capta las palabras a los lados usando visión periférica.
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 mb-6 text-center font-extrabold uppercase tracking-widest leading-relaxed">
+                        Entrenamiento Biomecánico: Fija la vista estrictamente en la línea central. Lee los extremos usando visión periférica.
                     </p>
-                    <div class="grid grid-cols-2 gap-x-12 gap-y-4 text-2xl font-bold border-l border-r border-dashed border-dalpa-cyan/30 px-8 py-6 w-full text-center relative" id="column-words-grid">
-                        <div class="text-right text-gray-400" id="col-left">Palabra Izq</div>
-                        <div class="text-left text-gray-400" id="col-right">Palabra Der</div>
+
+                    <!-- Contenedor centralizado con grid defensivo para celulares -->
+                    <div class="grid grid-cols-2 gap-x-2 sm:gap-x-6 md:gap-x-12 gap-y-4 text-lg sm:text-xl md:text-3xl font-extrabold border-l-2 border-r-2 border-dashed border-apex-cyan/30 px-4 md:px-8 py-6 w-full text-center relative" id="column-words-grid">
+                        <!-- Línea de enfoque central artificial -->
+                        <div class="absolute inset-y-0 left-1/2 -ml-[1px] border-l border-emerald-500/40 pointer-events-none"></div>
+
+                        <div class="text-right text-slate-500 dark:text-slate-400 pr-2 md:pr-4 truncate" id="col-left">Enfoque</div>
+                        <div class="text-left text-slate-500 dark:text-slate-400 pl-2 md:pl-4 truncate" id="col-right">Activo</div>
                     </div>
                 </div>
 
                 <!-- Barra de Progreso de Lectura -->
-                <div class="w-full bg-gray-100 h-1.5 rounded-full mt-8 overflow-hidden">
-                    <div id="reading-progress" class="bg-dalpa-cyan h-full w-0 transition-all duration-150"></div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-8 overflow-hidden theme-transition">
+                    <div id="reading-progress" class="bg-apex-cyan h-full w-0 transition-all duration-150"></div>
                 </div>
             </div>
 
@@ -129,86 +154,95 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                 <!-- Panel de Control Principal -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between space-y-4">
-                    <h4 class="font-bold text-gray-700 uppercase tracking-wider text-xs">Controles de Ejecución</h4>
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
+                    <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Controles de Ejecución</h4>
                     <div class="flex items-center justify-around">
-                        <button id="btn-rewind" class="w-12 h-12 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center text-lg">
+                        <button id="btn-rewind" class="w-12 h-12 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl transition-colors flex items-center justify-center text-lg">
                             <i class="fas fa-backward"></i>
                         </button>
-                        <button id="btn-play" class="w-16 h-16 bg-dalpa-blue text-white rounded-2xl hover:bg-blue-700 shadow-md transition-all flex items-center justify-center text-2xl">
+                        <button id="btn-play" class="w-16 h-16 bg-apex-blue text-white rounded-2xl hover:bg-blue-700 shadow-md transition-all flex items-center justify-center text-2xl shadow-apex-blue/20">
                             <i class="fas fa-play" id="play-icon"></i>
                         </button>
-                        <button id="btn-reset" class="w-12 h-12 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center text-lg">
+                        <button id="btn-reset" class="w-12 h-12 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl transition-colors flex items-center justify-center text-lg">
                             <i class="fas fa-redo"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Control de Velocidad (PPM) -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between space-y-4">
+                <!-- Control de Ritmo de Enfoque (PPM) -->
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
                     <div class="flex justify-between items-center">
-                        <h4 class="font-bold text-gray-700 uppercase tracking-wider text-xs">Velocidad de Lectura</h4>
-                        <span class="bg-blue-50 text-dalpa-blue font-black px-3 py-1 rounded-lg text-sm" id="ppm-display">300 PPM</span>
+                        <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Ritmo de Enfoque</h4>
+                        <span class="bg-blue-50 dark:bg-blue-950/50 text-apex-blue dark:text-apex-cyan font-black px-3 py-1 rounded-lg text-xs" id="ppm-display">300 PPM</span>
                     </div>
-                    <input type="range" id="ppm-slider" min="100" max="1000" step="50" value="300" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-dalpa-cyan">
-                    <div class="flex justify-between text-[10px] text-gray-400 font-bold uppercase">
-                        <span>Principiante (100)</span>
-                        <span>DALPA (600)</span>
-                        <span>Ninja (1000)</span>
+                    <input type="range" id="ppm-slider" min="100" max="1000" step="50" value="300" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-apex-cyan">
+                    <div class="flex justify-between text-[9px] text-slate-400 font-bold uppercase">
+                        <span>Básico (100)</span>
+                        <span>APEX (600)</span>
+                        <span>Hiperenfoque (1000)</span>
                     </div>
                 </div>
 
-                <!-- Tamaño de Letra y Preferencias -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between space-y-4">
-                    <h4 class="font-bold text-gray-700 uppercase tracking-wider text-xs">Tamaño de Texto</h4>
+                <!-- Tamaño de Letra y Zoom -->
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
+                    <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Ajuste del Campo Visual</h4>
                     <div class="flex items-center gap-4 justify-center">
-                        <button id="btn-zoom-out" class="w-12 h-12 border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 flex items-center justify-center font-bold">A-</button>
-                        <button id="btn-zoom-in" class="w-12 h-12 border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 flex items-center justify-center font-bold">A+</button>
+                        <button id="btn-zoom-out" class="w-12 h-12 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-center font-extrabold">-A</button>
+                        <button id="btn-zoom-in" class="w-12 h-12 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-center font-extrabold">+A</button>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Editor / Pegar tu propio texto -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+            <!-- Campo de Captura de Texto -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 space-y-4 theme-transition">
                 <div class="flex justify-between items-center">
-                    <h4 class="font-bold text-gray-700">Pega el texto que deseas entrenar o estudiar</h4>
-                    <span class="text-xs text-gray-400" id="word-count">24 palabras cargadas</span>
+                    <h4 class="font-bold text-slate-700 dark:text-slate-300 text-sm">Inserta el material de estudio para cargar</h4>
+                    <span class="text-[10px] text-slate-400 font-bold uppercase" id="word-count">24 palabras cargadas</span>
                 </div>
-                <textarea id="input-text" rows="5" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-dalpa-cyan focus:outline-none text-gray-700" placeholder="Inserta aquí tu material académico, correos del trabajo, o libros digitales para leerlos a supervelocidad con el método DALPA..."></textarea>
+                <textarea id="input-text" rows="4" class="w-full p-4 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl focus:ring-2 focus:ring-apex-cyan focus:outline-none text-slate-700 dark:text-slate-300 text-sm" placeholder="Inserta aquí tu material de estudio..."></textarea>
                 <div class="flex justify-end">
-                    <button id="btn-load-text" class="bg-dalpa-cyan text-white font-bold px-6 py-3 rounded-xl shadow-md hover:bg-cyan-500 transition-all text-sm flex items-center gap-2">
-                        <i class="fas fa-file-import"></i> Cargar Texto al Simulador
+                    <button id="btn-load-text" class="bg-apex-cyan text-slate-900 font-black px-6 py-3 rounded-xl shadow-lg shadow-apex-cyan/10 hover:bg-cyan-400 transition-all text-xs flex items-center gap-2">
+                        <i class="fas fa-file-import"></i> Cargar al Simulador
                     </button>
                 </div>
             </div>
 
-            <!-- Panel informativo sobre los beneficios de este entrenamiento -->
-            <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl flex gap-4 items-start">
-                <div class="text-dalpa-blue text-2xl mt-1"><i class="fas fa-info-circle"></i></div>
-                <div>
-                    <h5 class="font-bold text-dalpa-blue">Indicaciones Científicas del Método DALPA</h5>
-                    <p class="text-sm text-gray-600 mt-1">
-                        El modo **RSVP** evita que tus ojos hagan regresiones (volver atrás en el texto) y te obliga a procesar palabras individuales rápidamente. El modo **Flexor Columnas** ejercita tus flexores visuales colocándote palabras a los extremos; debes fijar la mirada estrictamente en el centro (en la línea imaginaria de división) para captar ambas palabras sin mover tus ojos horizontalmente. Esto expandirá tu visión periférica exponencialmente.
-                    </p>
-                </div>
-            </div>
+        </main>
+    </div>
 
-        </div>
-    </main>
+    <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 h-16 flex md:hidden items-center justify-around px-4 z-50 theme-transition shadow-2xl">
+        <a href="index.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i class="fas fa-chart-line text-lg"></i>
+            <span class="text-[9px] font-medium">Métricas</span>
+        </a>
+        <a href="simulador.html" class="flex flex-col items-center gap-1 text-apex-blue dark:text-apex-cyan">
+            <i class="fas fa-eye text-lg"></i>
+            <span class="text-[9px] font-bold">Simulador</span>
+        </a>
+        <a href="#" class="flex flex-col items-center gap-1 text-slate-300 dark:text-slate-700 cursor-not-allowed">
+            <i class="fas fa-dumbbell text-lg"></i>
+            <span class="text-[9px] font-medium">Tracker</span>
+        </a>
+        <a href="#" class="flex flex-col items-center gap-1 text-slate-300 dark:text-slate-700 cursor-not-allowed">
+            <i class="fas fa-cubes text-lg"></i>
+            <span class="text-[9px] font-medium">Hub</span>
+        </a>
+    </nav>
 
-    <!-- Script de Programación e Interactividad -->
+    <!-- Script de Interactividad y Gimnasia Biomecánica -->
     <script>
-        const defaultText = "La mente humana no tiene límites cuando se le entrena de forma correcta. El método DALPA elimina la subvocalización y expande tu visión periférica logrando un superaprendizaje absoluto y garantizando que tripliques tu velocidad de lectura y asimilación de datos de forma científica.";
+        const defaultText = "La mente humana no tiene límites cuando se le entrena de forma correcta. APEX Kinetix elimina la subvocalización y expande tu visión periférica logrando una soberanía cognitiva de alto rendimiento para asimilar conocimiento profundo sin depender de resúmenes artificiales.";
 
         let words = defaultText.split(/\s+/);
         let currentIndex = 0;
         let isPlaying = false;
         let timer = null;
-        let currentMode = 'rsvp'; // 'rsvp' o 'column'
-        let currentFontSize = 4; // Escala del 1 al 6
+        let currentMode = 'rsvp';
+        let currentFontSize = 3;
 
-        // Elementos del DOM
+        // Elementos DOM
         const btnPlay = document.getElementById('btn-play');
         const playIcon = document.getElementById('play-icon');
         const btnRewind = document.getElementById('btn-rewind');
@@ -230,20 +264,19 @@
 
         const btnZoomIn = document.getElementById('btn-zoom-in');
         const btnZoomOut = document.getElementById('btn-zoom-out');
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const bodyContainer = document.getElementById('body-container');
-        const readingCard = document.getElementById('reading-card');
+        const darkToggle = document.getElementById('dark-mode-toggle');
+        const darkIcon = document.getElementById('dark-icon');
+        const htmlElement = document.documentElement;
 
         inputText.value = defaultText;
         updateWordCount();
 
-        // --- SISTEMA DE LECTURA RSVP ---
+        // --- SISTEMA DE RENDERIZACIÓN ---
         function renderWord() {
             if (currentIndex >= words.length) {
                 pauseReading();
                 currentIndex = words.length - 1;
-                saveProgress();
+                completarEntrenamiento();
                 return;
             }
 
@@ -255,16 +288,13 @@
                 const focusChar = word.charAt(focusIndex);
                 const part2 = word.substring(focusIndex + 1);
 
-                rsvpWordContainer.innerHTML = `<span class="text-gray-700 dark:text-gray-200">${part1}</span><span class="focus-letter">${focusChar}</span><span class="text-gray-700 dark:text-gray-200">${part2}</span>`;
+                rsvpWordContainer.innerHTML = `<span class="text-slate-700 dark:text-slate-300">${part1}</span><span class="focus-letter">${focusChar}</span><span class="text-slate-700 dark:text-slate-300">${part2}</span>`;
             } else if (currentMode === 'column') {
                 const leftWord = words[currentIndex] || "";
                 const rightWord = words[currentIndex + 1] || "";
 
                 colLeft.textContent = leftWord;
                 colRight.textContent = rightWord;
-
-                colLeft.className = "text-right text-gray-800 dark:text-gray-100 font-extrabold transition-all";
-                colRight.className = "text-left text-gray-800 dark:text-gray-100 font-extrabold transition-all";
             }
 
             const percent = ((currentIndex + 1) / words.length) * 100;
@@ -290,7 +320,7 @@
         function pauseReading() {
             isPlaying = false;
             playIcon.className = "fas fa-play";
-            btnPlay.className = "w-16 h-16 bg-dalpa-blue text-white rounded-2xl hover:bg-blue-700 shadow-md transition-all flex items-center justify-center text-2xl";
+            btnPlay.className = "w-16 h-16 bg-apex-blue text-white rounded-2xl hover:bg-blue-700 shadow-md transition-all flex items-center justify-center text-2xl shadow-apex-blue/20";
             clearInterval(timer);
         }
 
@@ -302,29 +332,43 @@
             }
         }
 
-        // --- SISTEMA DE LOCAL STORAGE (CONECTA CON EL DASHBOARD) ---
-        function saveProgress() {
+        // --- SISTEMA DE PERSISTENCIA (LOCALSTORAGE) ---
+        function completarEntrenamiento() {
             const ppmActiva = parseInt(ppmSlider.value);
-            const maxPpm = localStorage.getItem('dalpa_max_ppm') || 200;
+            const maxPpm = localStorage.getItem('apex_ritmo_enfoque') || 200;
             if (ppmActiva > parseInt(maxPpm)) {
-                localStorage.setItem('dalpa_max_ppm', ppmActiva);
+                localStorage.setItem('apex_ritmo_enfoque', ppmActiva);
             }
 
-            let minutos = parseInt(localStorage.getItem('dalpa_minutos_totales') || 0);
+            let minutos = parseInt(localStorage.getItem('apex_minutos_totales') || 0);
             minutos += 1;
-            localStorage.setItem('dalpa_minutos_totales', minutos);
+            localStorage.setItem('apex_minutos_totales', minutos);
 
-            localStorage.setItem('dalpa_comprension', 85);
+            localStorage.setItem('apex_retencion_cognitiva', 85); // Puntuación promedio de práctica
 
-            let racha = parseInt(localStorage.getItem('dalpa_racha') || 1);
-            localStorage.setItem('dalpa_racha', racha + 1);
+            let racha = parseInt(localStorage.getItem('apex_focus_streak') || 0);
+            if (racha === 0) racha = 1;
+            localStorage.setItem('apex_focus_streak', racha + 1);
 
-            alert("🎉 ¡Entrenamiento completado! Tus estadísticas se han guardado localmente en tu perfil de DALPA.");
+            alert("⚡ ¡Entrenamiento de hoy completado con éxito! Tus estadísticas de rendimiento han sido grabadas en tu perfil de APEX.");
         }
 
         function updateWordCount() {
             const count = words.filter(w => w.trim().length > 0).length;
             wordCountDisplay.textContent = `${count} palabras cargadas`;
+        }
+
+        // --- MODO OSCURO ---
+        function aplicarModoOscuro(isDark) {
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                darkIcon.className = "fas fa-sun text-lg text-yellow-400";
+                localStorage.setItem('apex_dark_mode', 'enabled');
+            } else {
+                htmlElement.classList.remove('dark');
+                darkIcon.className = "fas fa-moon text-lg text-slate-500";
+                localStorage.setItem('apex_dark_mode', 'disabled');
+            }
         }
 
         // --- EVENTOS ---
@@ -360,15 +404,15 @@
                 currentIndex = 0;
                 updateWordCount();
                 renderWord();
-                alert("📝 ¡Texto cargado exitosamente en el Simulador!");
+                alert("📝 ¡Texto cargado exitosamente en tu Simulador APEX!");
             }
         });
 
         btnModeRsvp.addEventListener('click', () => {
             pauseReading();
             currentMode = 'rsvp';
-            btnModeRsvp.className = "px-4 py-2 rounded-lg font-bold text-sm transition-all bg-white text-dalpa-blue shadow-sm";
-            btnModeColumn.className = "px-4 py-2 rounded-lg font-bold text-sm transition-all text-gray-600 hover:text-dalpa-blue";
+            btnModeRsvp.className = "px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm";
+            btnModeColumn.className = "px-4 py-2 rounded-lg font-bold text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue";
             rsvpScreen.classList.remove('hidden');
             columnScreen.classList.add('hidden');
             currentIndex = 0;
@@ -378,15 +422,15 @@
         btnModeColumn.addEventListener('click', () => {
             pauseReading();
             currentMode = 'column';
-            btnModeColumn.className = "px-4 py-2 rounded-lg font-bold text-sm transition-all bg-white text-dalpa-blue shadow-sm";
-            btnModeRsvp.className = "px-4 py-2 rounded-lg font-bold text-sm transition-all text-gray-600 hover:text-dalpa-blue";
+            btnModeColumn.className = "px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm";
+            btnModeRsvp.className = "px-4 py-2 rounded-lg font-bold text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue";
             rsvpScreen.classList.add('hidden');
             columnScreen.classList.remove('hidden');
             currentIndex = 0;
             renderWord();
         });
 
-        const fontClasses = ["text-xl", "text-2xl", "text-4xl", "text-5xl", "text-6xl", "text-7xl"];
+        const fontClasses = ["text-base", "text-lg", "text-xl", "text-3xl", "text-5xl", "text-7xl"];
         btnZoomIn.addEventListener('click', () => {
             if (currentFontSize < 5) {
                 currentFontSize++;
@@ -402,26 +446,22 @@
         });
 
         function adjustFontClass() {
-            rsvpWordContainer.className = `font-extrabold tracking-wide rsvp-word py-6 select-none text-center ${fontClasses[currentFontSize]}`;
-            colLeft.className = `text-right text-gray-800 dark:text-gray-100 font-extrabold transition-all ${fontClasses[currentFontSize - 1 || 0]}`;
-            colRight.className = `text-left text-gray-800 dark:text-gray-100 font-extrabold transition-all ${fontClasses[currentFontSize - 1 || 0]}`;
+            rsvpWordContainer.className = `font-black tracking-wide rsvp-word py-6 select-none text-center ${fontClasses[currentFontSize + 1]}`;
+            colLeft.className = `text-right text-slate-500 dark:text-slate-400 font-extrabold transition-all truncate ${fontClasses[currentFontSize]}`;
+            colRight.className = `text-left text-slate-500 dark:text-slate-400 font-extrabold transition-all truncate ${fontClasses[currentFontSize]}`;
         }
 
-        themeToggle.addEventListener('click', () => {
-            if (bodyContainer.classList.contains('dark')) {
-                bodyContainer.classList.remove('dark');
-                bodyContainer.classList.add('bg-gray-50');
-                readingCard.classList.remove('bg-slate-800', 'border-slate-700');
-                readingCard.classList.add('bg-white', 'border-gray-100');
-                themeIcon.className = "fas fa-moon text-xl text-gray-400";
-            } else {
-                bodyContainer.classList.add('dark');
-                bodyContainer.classList.remove('bg-gray-50');
-                bodyContainer.style.backgroundColor = "#0F172A";
-                readingCard.classList.add('bg-slate-800', 'border-slate-700');
-                readingCard.classList.remove('bg-white', 'border-gray-100');
-                themeIcon.className = "fas fa-sun text-xl text-yellow-400";
-            }
+        // Modo oscuro inicial
+        const currentSetting = localStorage.getItem('apex_dark_mode');
+        if (currentSetting === 'enabled') {
+            aplicarModoOscuro(true);
+        } else {
+            aplicarModoOscuro(false);
+        }
+
+        darkToggle.addEventListener('click', () => {
+            const isDark = htmlElement.classList.contains('dark');
+            aplicarModoOscuro(!isDark);
         });
 
         renderWord();
