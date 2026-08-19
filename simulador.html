@@ -55,27 +55,27 @@ Copia todo este bloque de código y pégalo en tu archivo `simulador.html` en Gi
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans theme-transition min-h-screen flex flex-col md:flex-row pb-20 md:pb-0" id="body-container">
 
-    <!-- BARRA LATERAL (Escritorio - Desktop) -->
-    <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0">
+        <!-- BARRA LATERAL (Escritorio - Desktop) -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0 z-20">
         <div class="p-6 text-center border-b border-slate-800">
             <h1 class="text-3xl font-black text-apex-cyan tracking-wider">APEX</h1>
             <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">Kinetix System</p>
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2">
             <a href="index.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-chart-line w-5"></i> Métricas APEX
+                <i class="fas fa-chart-line w-5 text-gray-400"></i> Métricas APEX
             </a>
             <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 bg-apex-blue rounded-xl text-white font-semibold shadow-lg shadow-apex-blue/20 transition-all">
                 <i class="fas fa-eye w-5 text-apex-cyan"></i> Simulador Óptico
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
-                <i class="fas fa-dumbbell w-5"></i> Eye Tracker
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-50 cursor-not-allowed">
+                <i class="fas fa-dumbbell w-5"></i> Eye Tracker <span class="text-[8px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded-full ml-auto font-bold uppercase">Pronto</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
-                <i class="fas fa-cubes w-5"></i> Apex Hub
+            <a href="hub.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
+                <i class="fas fa-cubes w-5 text-gray-400"></i> APEX Hub
             </a>
             <a href="lexico.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-spell-check w-5 text-slate-500"></i> Léxico
+                <i class="fas fa-spell-check w-5 text-gray-400"></i> Léxico
             </a>
         </nav>
         <div class="p-4 border-t border-slate-800">
@@ -225,7 +225,7 @@ Copia todo este bloque de código y pégalo en tu archivo `simulador.html` en Gi
         </main>
     </div>
 
-    <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
+        <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 h-16 flex md:hidden items-center justify-around px-4 z-50 theme-transition shadow-2xl">
         <a href="index.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
             <i class="fas fa-chart-line text-lg"></i>
@@ -236,7 +236,7 @@ Copia todo este bloque de código y pégalo en tu archivo `simulador.html` en Gi
             <span class="text-[9px] font-bold">Simulador</span>
         </a>
         <a href="hub.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-            <i class="fas fa-book-open text-lg"></i>
+            <i class="fas fa-cubes text-lg"></i>
             <span class="text-[9px] font-medium">Hub</span>
         </a>
         <a href="lexico.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
