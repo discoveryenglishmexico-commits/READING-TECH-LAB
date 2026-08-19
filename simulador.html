@@ -1,3 +1,17 @@
+# APEX Kinetix - Simulador Óptico (Código Fuente)
+
+Este archivo contiene el código fuente completo y actualizado del **Simulador Óptico** (**simulador.html**) adaptado a la identidad premium de **APEX Kinetix**.
+
+### 🔧 Corrección de Bug Móvil:
+*   **Ajuste responsivo de columnas:** Se redujo el tamaño de texto a `text-lg sm:text-xl md:text-3xl` en dispositivos móviles y el espaciado interno a `gap-x-2 md:gap-x-12` con padding dinámico. Esto **evita que las palabras largas se encimen o se empalmen en pantallas estrechas**, asegurando una simulación fluida y legible en cualquier celular.
+*   **Control de truncado de textos:** Se añadieron estilos para prevenir desbordes de texto inesperados.
+
+---
+
+### Código Completo (`simulador.html`)
+Copia todo este bloque de código y pégalo en tu archivo `simulador.html` en GitHub.
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -221,13 +235,13 @@
             <i class="fas fa-eye text-lg"></i>
             <span class="text-[9px] font-bold">Simulador</span>
         </a>
-        <a href="#" class="flex flex-col items-center gap-1 text-slate-300 dark:text-slate-700 cursor-not-allowed">
-            <i class="fas fa-dumbbell text-lg"></i>
-            <span class="text-[9px] font-medium">Tracker</span>
-        </a>
-        <a href="#" class="flex flex-col items-center gap-1 text-slate-300 dark:text-slate-700 cursor-not-allowed">
-            <i class="fas fa-cubes text-lg"></i>
+        <a href="hub.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i class="fas fa-book-open text-lg"></i>
             <span class="text-[9px] font-medium">Hub</span>
+        </a>
+        <a href="lexico.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i class="fas fa-spell-check text-lg"></i>
+            <span class="text-[9px] font-medium">Léxico</span>
         </a>
     </nav>
 
