@@ -1,3 +1,15 @@
+# APEX Kinetix - Dashboard de Enfoque Sapiens (Código Fuente)
+
+Este archivo contiene el código fuente actualizado de la página principal de tu plataforma (**index.html**), completamente rediseñado bajo la nueva identidad de marca **APEX Kinetix**.
+
+Se han eliminado las restricciones de altura fija para garantizar que la visualización sea perfecta en celulares, se ha integrado un menú de navegación tipo app nativa para móviles y se ha programado un sistema de **Modo Oscuro Real** que afecta a toda la interfaz y se guarda en la memoria del dispositivo.
+
+---
+
+### Código Completo (`index.html`)
+Copia todo este bloque de código y pégalo en tu archivo `index.html` en GitHub.
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -35,8 +47,8 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans theme-transition min-h-screen flex flex-col md:flex-row pb-20 md:pb-0">
 
-    <!-- BARRA LATERAL (Escritorio - Desktop) -->
-    <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0">
+        <!-- BARRA LATERAL (Escritorio - Desktop) -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0 z-20">
         <div class="p-6 text-center border-b border-slate-800">
             <h1 class="text-3xl font-black text-apex-cyan tracking-wider">APEX</h1>
             <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">Kinetix System</p>
@@ -46,13 +58,16 @@
                 <i class="fas fa-chart-line w-5 text-apex-cyan"></i> Métricas APEX
             </a>
             <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-eye w-5"></i> Simulador Óptico
+                <i class="fas fa-eye w-5 text-gray-400"></i> Simulador Óptico
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-50 cursor-not-allowed">
+                <i class="fas fa-dumbbell w-5"></i> Eye Tracker <span class="text-[8px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded-full ml-auto font-bold uppercase">Pronto</span>
             </a>
             <a href="hub.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-book-open w-5"></i> APEX Hub
+                <i class="fas fa-cubes w-5 text-gray-400"></i> APEX Hub
             </a>
             <a href="lexico.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-spell-check w-5"></i> Léxico
+                <i class="fas fa-spell-check w-5 text-gray-400"></i> Léxico
             </a>
         </nav>
         <div class="p-4 border-t border-slate-800">
@@ -169,7 +184,7 @@
         </main>
     </div>
 
-    <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
+        <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 h-16 flex md:hidden items-center justify-around px-4 z-50 theme-transition shadow-2xl">
         <a href="index.html" class="flex flex-col items-center gap-1 text-apex-blue dark:text-apex-cyan">
             <i class="fas fa-chart-line text-lg"></i>
@@ -180,7 +195,7 @@
             <span class="text-[9px] font-medium">Simulador</span>
         </a>
         <a href="hub.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-            <i class="fas fa-book-open text-lg"></i>
+            <i class="fas fa-cubes text-lg"></i>
             <span class="text-[9px] font-medium">Hub</span>
         </a>
         <a href="lexico.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
