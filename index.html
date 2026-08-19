@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DALPA - Mental Tech Dashboard</title>
-    <!-- Cargamos Tailwind CSS para el diseño premium -->
+    <title>APEX Kinetix - Enfoque Sapiens</title>
+    <!-- Tailwind CSS para el diseño de vanguardia -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Cargamos FontAwesome para los íconos tecnológicos -->
+    <!-- FontAwesome para iconografía tecnológica -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        dalpa: {
+                        apex: {
                             blue: '#00529B',
                             cyan: '#00A4E4',
-                            dark: '#1E293B',
-                            darkBg: '#0F172A',
-                            cardDark: '#1E293B'
+                            dark: '#0F172A',
+                            slate: '#1E293B',
+                            lightBg: '#F8FAFC'
                         }
                     }
                 }
@@ -26,239 +27,216 @@
         }
     </script>
     <style>
-        .transition-colors-300 {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        /* Desvanecidos suaves para transiciones de modo oscuro */
+        .theme-transition {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
     </style>
 </head>
-<body id="body-container" class="bg-gray-50 flex flex-col md:flex-row h-screen md:overflow-hidden text-gray-800 font-sans transition-colors-300">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans theme-transition min-h-screen flex flex-col md:flex-row pb-20 md:pb-0">
 
-    <!-- Barra Lateral (Menú Desktop - Oculto en móviles) -->
-    <aside class="w-64 bg-dalpa-dark text-white flex flex-col hidden md:flex shrink-0">
-        <div class="p-6 text-center border-b border-gray-700">
-            <h1 class="text-3xl font-black text-dalpa-cyan tracking-widest">DALPA</h1>
-            <p class="text-xs text-gray-400 mt-1 uppercase tracking-widest">Mental Tech</p>
+    <!-- BARRA LATERAL (Escritorio - Desktop) -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0">
+        <div class="p-6 text-center border-b border-slate-800">
+            <h1 class="text-3xl font-black text-apex-cyan tracking-wider">APEX</h1>
+            <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">Kinetix System</p>
         </div>
-        <nav class="flex-1 px-4 py-6 space-y-3">
-            <a href="index.html" class="flex items-center gap-3 px-4 py-3 bg-dalpa-blue rounded-xl text-white font-medium shadow-md transition-colors"><i class="fas fa-chart-pie w-5"></i> Mi Rendimiento</a>
-            <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 rounded-xl text-gray-300 font-medium transition-colors"><i class="fas fa-tachometer-alt w-5"></i> Simulador Flexor</a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 rounded-xl text-gray-300 font-medium transition-colors"><i class="fas fa-book-open w-5"></i> Academia y Tomos</a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 rounded-xl text-gray-300 font-medium transition-colors"><i class="fas fa-brain w-5"></i> Vocabulario</a>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 bg-apex-blue rounded-xl text-white font-semibold shadow-lg shadow-apex-blue/20 transition-all">
+                <i class="fas fa-chart-line w-5 text-apex-cyan"></i> Métricas APEX
+            </a>
+            <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
+                <i class="fas fa-eye w-5"></i> Simulador Óptico
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
+                <i class="fas fa-dumbbell w-5"></i> Eye Tracker
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
+                <i class="fas fa-cubes w-5"></i> Apex Hub
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
+                <i class="fas fa-spell-check w-5"></i> Léxico
+            </a>
         </nav>
-        <div class="p-4 border-t border-gray-700">
-            <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 rounded-lg text-gray-400 text-sm transition-colors"><i class="fas fa-sign-out-alt w-5"></i> Cerrar Sesión</a>
+        <div class="p-4 border-t border-slate-800">
+            <p class="text-xs text-slate-500 text-center py-2">No es velocidad. Es soberanía.</p>
         </div>
     </aside>
 
-    <!-- Contenido Principal -->
-    <main class="flex-1 flex flex-col h-screen overflow-y-auto pb-24 md:pb-0">
-        <!-- Encabezado -->
-        <header id="header-container" class="bg-white shadow-sm h-16 flex items-center justify-between px-6 md:px-8 z-10 transition-colors-300 shrink-0">
-            <h2 id="header-title" class="text-xl font-bold text-gray-800">Panel de Rendimiento</h2>
-            <div class="flex items-center gap-5">
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-h-screen">
+        <!-- Encabezado superior -->
+        <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 h-16 flex items-center justify-between px-6 md:px-8 shrink-0 theme-transition">
+            <div class="flex items-center gap-2">
+                <span class="text-xl font-black text-apex-blue dark:text-apex-cyan tracking-wider md:hidden">APEX</span>
+                <h2 class="text-lg font-bold text-slate-800 dark:text-white hidden md:block">Métricas de Soberanía Mental</h2>
+            </div>
+
+            <div class="flex items-center gap-4">
                 <!-- Botón de Modo Oscuro Real -->
-                <button id="theme-toggle" class="text-gray-400 hover:text-dalpa-blue transition-colors focus:outline-none">
-                    <i id="theme-icon" class="fas fa-moon text-xl"></i>
+                <button id="dark-mode-toggle" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl flex items-center justify-center text-slate-500 dark:text-yellow-400 transition-colors">
+                    <i class="fas fa-moon text-lg" id="dark-icon"></i>
                 </button>
-                <div class="flex items-center gap-3 border-l pl-5">
+
+                <!-- Perfil -->
+                <div class="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-4">
                     <div class="text-right hidden sm:block">
-                        <p id="user-name" class="text-sm font-bold text-gray-800">Estudiante Premium</p>
-                        <p class="text-xs text-gray-500">Acceso Habilitado</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Membresía Activa</p>
+                        <p class="text-sm font-black text-apex-blue dark:text-apex-cyan">Sapien Focus Premium</p>
                     </div>
-                    <div class="w-10 h-10 bg-dalpa-cyan rounded-full flex items-center justify-center text-white font-bold shadow-md">EP</div>
+                    <div class="w-10 h-10 bg-gradient-to-tr from-apex-blue to-apex-cyan rounded-xl flex items-center justify-center text-white font-extrabold shadow-md shadow-apex-cyan/20">
+                        SF
+                    </div>
                 </div>
             </div>
         </header>
 
-        <!-- Zona de Estadísticas (Ajustada para que no se corte en móvil) -->
-        <div class="p-4 md:p-8 max-w-7xl mx-auto w-full space-y-6 md:space-y-8">
-            <div class="mb-2">
-                <h3 id="welcome-title" class="text-2xl md:text-3xl font-bold text-gray-800 transition-colors-300">¡Hola, bienvenido de vuelta!</h3>
-                <p id="welcome-desc" class="text-gray-500 mt-2 text-base md:text-lg transition-colors-300">Tu objetivo es alcanzar las <span class="font-bold text-dalpa-blue">600 PPM</span>. Sigue entrenando tus flexores visuales.</p>
+        <!-- Área de Métricas -->
+        <main class="p-4 md:p-8 max-w-6xl w-full mx-auto space-y-6">
+
+            <!-- Declaración de Principios / Bienvenida -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-3xl shadow-sm theme-transition">
+                <span class="bg-emerald-100 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-full">Soberanía de Atención</span>
+                <h3 class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white mt-4">¡Hola, Sapien Focus!</h3>
+                <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm md:text-base leading-relaxed">
+                    Tu entrenamiento biomecánico está enfocado en recuperar tu soberanía mental frente a la saturación digital. Tu objetivo sugerido es consolidar un ritmo de lectura de <span class="font-extrabold text-apex-blue dark:text-apex-cyan">600 PPM</span> con total comprensión y profundidad cognitiva.
+                </p>
             </div>
 
-            <!-- Grid de Métricas -->
+            <!-- Grid de Tarjetas de Métricas -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
-                <!-- Métrica 1 -->
-                <div id="card-metric-1" class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-all">
-                    <div class="w-12 h-12 md:w-16 md:h-16 bg-blue-50 text-dalpa-blue rounded-2xl flex items-center justify-center text-xl md:text-2xl shrink-0"><i class="fas fa-bolt"></i></div>
+                <!-- Ritmo de Enfoque (PPM) -->
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-5 hover:border-apex-blue dark:hover:border-apex-cyan transition-all theme-transition">
+                    <div class="w-14 h-14 bg-blue-50 dark:bg-blue-950/40 text-apex-blue dark:text-apex-cyan rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fas fa-eye-dropper"></i>
+                    </div>
                     <div>
-                        <p class="text-xs md:text-sm text-gray-500 font-medium uppercase tracking-wide">Velocidad Actual</p>
-                        <h4 id="metric-ppm" class="text-2xl md:text-3xl font-black text-gray-800 mt-1">200 <span class="text-sm md:text-base font-medium text-gray-500">PPM</span></h4>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest">Ritmo de Enfoque</p>
+                        <h4 class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white mt-1" id="val-enfoque">200 <span class="text-xs font-bold text-slate-400">PPM</span></h4>
                     </div>
                 </div>
-                <!-- Métrica 2 -->
-                <div id="card-metric-2" class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-all">
-                    <div class="w-12 h-12 md:w-16 md:h-16 bg-cyan-50 text-dalpa-cyan rounded-2xl flex items-center justify-center text-xl md:text-2xl shrink-0"><i class="fas fa-bullseye"></i></div>
+
+                <!-- Retención Cognitiva -->
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-5 hover:border-apex-blue dark:hover:border-apex-cyan transition-all theme-transition">
+                    <div class="w-14 h-14 bg-cyan-50 dark:bg-cyan-950/40 text-apex-cyan rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fas fa-brain"></i>
+                    </div>
                     <div>
-                        <p class="text-xs md:text-sm text-gray-500 font-medium uppercase tracking-wide">Comprensión</p>
-                        <h4 id="metric-comp" class="text-2xl md:text-3xl font-black text-gray-800 mt-1">60 <span class="text-sm md:text-base font-medium text-gray-500">%</span></h4>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest">Retención Cognitiva</p>
+                        <h4 class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white mt-1" id="val-retencion">0 <span class="text-xs font-bold text-slate-400">%</span></h4>
                     </div>
                 </div>
-                <!-- Métrica 3 -->
-                <div id="card-metric-3" class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-all">
-                    <div class="w-12 h-12 md:w-16 md:h-16 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center text-xl md:text-2xl shrink-0"><i class="fas fa-fire"></i></div>
+
+                <!-- Focus Streak -->
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-5 hover:border-apex-blue dark:hover:border-apex-cyan transition-all theme-transition">
+                    <div class="w-14 h-14 bg-orange-50 dark:bg-orange-950/40 text-orange-500 rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fas fa-fire"></i>
+                    </div>
                     <div>
-                        <p class="text-xs md:text-sm text-gray-500 font-medium uppercase tracking-wide">Racha de Estudio</p>
-                        <h4 id="metric-racha" class="text-2xl md:text-3xl font-black text-gray-800 mt-1">3 <span class="text-sm md:text-base font-medium text-gray-500">Días</span></h4>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest">Focus Streak</p>
+                        <h4 class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white mt-1" id="val-racha">0 <span class="text-xs font-bold text-slate-400">Días</span></h4>
                     </div>
                 </div>
             </div>
 
-            <!-- Llamado a la acción: Siguiente Lección (Enlazado al Simulador) -->
-            <div class="bg-dalpa-dark rounded-3xl p-6 md:p-8 text-white shadow-xl flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
-                <div class="absolute top-0 right-0 opacity-10 hidden sm:block">
-                    <i class="fas fa-brain text-9xl -mt-5 -mr-5"></i>
+            <!-- Caja Destacada: Entrenamiento Diario -->
+            <div class="bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden border border-slate-800">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none">
+                    <i class="fas fa-bolt text-[240px]"></i>
                 </div>
-                <div class="relative z-10 text-center md:text-left w-full">
-                    <span class="bg-dalpa-cyan px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-sm inline-block">Entrenamiento de hoy</span>
-                    <h3 class="text-xl md:text-2xl font-bold mt-3">Educación de la visión periférica</h3>
-                    <p class="mt-2 text-sm md:text-base text-gray-300 max-w-xl">Práctica del rápido movimiento ojo-cerebro utilizando el Flexor Visual No. 1. Elimina la subvocalización.</p>
+                <div class="relative z-10 space-y-4">
+                    <span class="bg-apex-cyan text-slate-900 px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase shadow-md shadow-apex-cyan/20">Sesión Recomendada</span>
+                    <h3 class="text-xl md:text-2xl font-black">Gimnasia Ocular Biomecánica</h3>
+                    <p class="text-slate-400 text-sm md:text-base max-w-xl leading-relaxed">
+                        Entrena la visión periférica y ejercita tus músculos ópticos con el simulador interactivo de columnas. Libérate de la subvocalización y mantén tu enfoque impecable por 10 minutos.
+                    </p>
+                    <div class="pt-2">
+                        <a href="simulador.html" class="inline-flex items-center gap-2 bg-white text-slate-900 font-black px-6 py-3 rounded-xl shadow-lg hover:bg-slate-100 transition-all text-sm">
+                            Iniciar Entrenamiento <i class="fas fa-play text-apex-blue"></i>
+                        </a>
+                    </div>
                 </div>
-                <!-- Redirección directa a simulador.html -->
-                <a href="simulador.html" class="relative z-10 bg-white text-dalpa-dark font-bold px-6 py-3.5 rounded-xl shadow-lg hover:bg-gray-100 transition-all flex items-center gap-2 whitespace-nowrap text-sm md:text-base w-full md:w-auto justify-center">
-                    Iniciar 10 minutos <i class="fas fa-play text-dalpa-cyan"></i>
-                </a>
             </div>
-        </div>
-    </main>
 
-    <!-- Barra de Navegación Inferior (Solo Móvil - Diseñada como App Nativa) -->
-    <nav id="mobile-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-2.5 px-6 flex justify-between items-center z-50 shadow-xl transition-colors-300">
-        <a href="index.html" class="flex flex-col items-center gap-1 text-dalpa-blue">
-            <i class="fas fa-chart-pie text-lg"></i>
-            <span class="text-[10px] font-bold">Rendimiento</span>
+            <!-- Manifiesto de Soberanía Mental -->
+            <div class="bg-blue-50/50 dark:bg-slate-900/30 border border-blue-100/50 dark:border-slate-800/80 rounded-2xl p-6 flex gap-4 items-start theme-transition">
+                <div class="text-apex-blue dark:text-apex-cyan text-xl mt-1 shrink-0"><i class="fas fa-shield-alt"></i></div>
+                <div>
+                    <h5 class="font-bold text-slate-800 dark:text-white text-sm">El Manifiesto APEX Kinetix</h5>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                        La digitalización y las redes sociales de consumo masivo están diseñadas para fraccionar y monetizar tu atención. Leer velozmente no es para "romper récords", es un acto de soberanía mental para dominar la sobrecarga de información y procesar conocimiento profundo en una fracción del tiempo, manteniendo tu cerebro ágil y enfocado.
+                    </p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 h-16 flex md:hidden items-center justify-around px-4 z-50 theme-transition shadow-2xl">
+        <a href="index.html" class="flex flex-col items-center gap-1 text-apex-blue dark:text-apex-cyan">
+            <i class="fas fa-chart-line text-lg"></i>
+            <span class="text-[9px] font-bold">Métricas</span>
         </a>
-        <a href="simulador.html" class="flex flex-col items-center gap-1 text-gray-400 hover:text-dalpa-blue">
-            <i class="fas fa-tachometer-alt text-lg"></i>
-            <span class="text-[10px] font-bold">Simulador</span>
+        <a href="simulador.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i class="fas fa-eye text-lg"></i>
+            <span class="text-[9px] font-medium">Simulador</span>
         </a>
-        <a href="#" class="flex flex-col items-center gap-1 text-gray-400 hover:text-dalpa-blue">
-            <i class="fas fa-book-open text-lg"></i>
-            <span class="text-[10px] font-bold">Tomos</span>
+        <a href="#" class="flex flex-col items-center gap-1 text-slate-300 dark:text-slate-700 cursor-not-allowed">
+            <i class="fas fa-dumbbell text-lg"></i>
+            <span class="text-[9px] font-medium">Tracker</span>
         </a>
-        <a href="#" class="flex flex-col items-center gap-1 text-gray-400 hover:text-dalpa-blue">
-            <i class="fas fa-brain text-lg"></i>
-            <span class="text-[10px] font-bold">Vocabulario</span>
+        <a href="#" class="flex flex-col items-center gap-1 text-slate-300 dark:text-slate-700 cursor-not-allowed">
+            <i class="fas fa-cubes text-lg"></i>
+            <span class="text-[9px] font-medium">Hub</span>
         </a>
     </nav>
 
-    <!-- JavaScript para Cargar Progreso y Modo Oscuro -->
+    <!-- Script de Sincronización LocalStorage y Modo Oscuro -->
     <script>
-        // Cargar estadísticas guardadas del simulador
-        document.addEventListener("DOMContentLoaded", () => {
-            const savedPPM = localStorage.getItem('dalpa_max_ppm');
-            const savedComp = localStorage.getItem('dalpa_comprension');
-            const savedRacha = localStorage.getItem('dalpa_racha');
+        // --- Sincronización de Datos desde el Simulador ---
+        function cargarMetricas() {
+            const enfoque = localStorage.getItem('apex_ritmo_enfoque') || '200';
+            const retencion = localStorage.getItem('apex_retencion_cognitiva') || '0';
+            const racha = localStorage.getItem('apex_focus_streak') || '0';
 
-            if (savedPPM) {
-                document.getElementById('metric-ppm').innerHTML = `${savedPPM} <span class="text-sm md:text-base font-medium text-gray-500">PPM</span>`;
-            }
-            if (savedComp) {
-                document.getElementById('metric-comp').innerHTML = `${savedComp} <span class="text-sm md:text-base font-medium text-gray-500">%</span>`;
-            }
-            if (savedRacha) {
-                document.getElementById('metric-racha').innerHTML = `${savedRacha} <span class="text-sm md:text-base font-medium text-gray-500">Días</span>`;
-            }
+            document.getElementById('val-enfoque').innerHTML = `${enfoque} <span class="text-xs font-bold text-slate-400">PPM</span>`;
+            document.getElementById('val-retencion').innerHTML = `${retencion} <span class="text-xs font-bold text-slate-400">%</span>`;
+            document.getElementById('val-racha').innerHTML = `${racha} <span class="text-xs font-bold text-slate-400">Días</span>`;
+        }
 
-            // Inicializar Modo Oscuro según preferencia guardada
-            const isDark = localStorage.getItem('dalpa_dark_mode') === 'true';
+        // --- Gestión de Modo Oscuro Guardado ---
+        const darkToggle = document.getElementById('dark-mode-toggle');
+        const darkIcon = document.getElementById('dark-icon');
+        const htmlElement = document.documentElement;
+
+        function aplicarModoOscuro(isDark) {
             if (isDark) {
-                enableDarkMode();
-            }
-        });
-
-        // Toggle del Modo Oscuro
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const bodyContainer = document.getElementById('body-container');
-        const headerContainer = document.getElementById('header-container');
-        const headerTitle = document.getElementById('header-title');
-        const userName = document.getElementById('user-name');
-        const welcomeTitle = document.getElementById('welcome-title');
-        const welcomeDesc = document.getElementById('welcome-desc');
-        const mobileNav = document.getElementById('mobile-nav');
-
-        const cardMetrics = [
-            document.getElementById('card-metric-1'),
-            document.getElementById('card-metric-2'),
-            document.getElementById('card-metric-3')
-        ];
-
-        themeToggle.addEventListener('click', () => {
-            const isDark = bodyContainer.classList.contains('bg-slate-950');
-            if (isDark) {
-                disableDarkMode();
+                htmlElement.classList.add('dark');
+                darkIcon.className = "fas fa-sun text-lg text-yellow-400";
+                localStorage.setItem('apex_dark_mode', 'enabled');
             } else {
-                enableDarkMode();
+                htmlElement.classList.remove('dark');
+                darkIcon.className = "fas fa-moon text-lg text-slate-500";
+                localStorage.setItem('apex_dark_mode', 'disabled');
             }
+        }
+
+        // Inicializar Estado de Modo Oscuro al Cargar
+        const currentSetting = localStorage.getItem('apex_dark_mode');
+        if (currentSetting === 'enabled') {
+            aplicarModoOscuro(true);
+        } else {
+            aplicarModoOscuro(false);
+        }
+
+        darkToggle.addEventListener('click', () => {
+            const isDark = htmlElement.classList.contains('dark');
+            aplicarModoOscuro(!isDark);
         });
 
-        function enableDarkMode() {
-            bodyContainer.classList.remove('bg-gray-50');
-            bodyContainer.classList.add('bg-slate-950');
-            bodyContainer.classList.add('text-white');
-            bodyContainer.classList.remove('text-gray-800');
-
-            headerContainer.classList.remove('bg-white');
-            headerContainer.classList.add('bg-slate-900', 'border-b', 'border-slate-800');
-            headerTitle.classList.remove('text-gray-800');
-            headerTitle.classList.add('text-white');
-            if (userName) userName.classList.replace('text-gray-800', 'text-white');
-
-            welcomeTitle.classList.remove('text-gray-800');
-            welcomeTitle.classList.add('text-white');
-            welcomeDesc.classList.replace('text-gray-500', 'text-slate-400');
-
-            cardMetrics.forEach(card => {
-                if (card) {
-                    card.classList.remove('bg-white', 'border-gray-100');
-                    card.classList.add('bg-slate-900', 'border-slate-800');
-                    const title = card.querySelector('h4');
-                    title.classList.remove('text-gray-800');
-                    title.classList.add('text-white');
-                }
-            });
-
-            mobileNav.classList.remove('bg-white', 'border-gray-200');
-            mobileNav.classList.add('bg-slate-900', 'border-slate-800');
-
-            themeIcon.className = "fas fa-sun text-xl text-yellow-400";
-            localStorage.setItem('dalpa_dark_mode', 'true');
-        }
-
-        function disableDarkMode() {
-            bodyContainer.classList.add('bg-gray-50');
-            bodyContainer.classList.remove('bg-slate-950');
-            bodyContainer.classList.remove('text-white');
-            bodyContainer.classList.add('text-gray-800');
-
-            headerContainer.classList.add('bg-white');
-            headerContainer.classList.remove('bg-slate-900', 'border-b', 'border-slate-800');
-            headerTitle.classList.add('text-gray-800');
-            headerTitle.classList.remove('text-white');
-            if (userName) userName.classList.replace('text-white', 'text-gray-800');
-
-            welcomeTitle.classList.add('text-gray-800');
-            welcomeTitle.classList.remove('text-white');
-            welcomeDesc.classList.replace('text-slate-400', 'text-gray-500');
-
-            cardMetrics.forEach(card => {
-                if (card) {
-                    card.classList.add('bg-white', 'border-gray-100');
-                    card.classList.remove('bg-slate-900', 'border-slate-800');
-                    const title = card.querySelector('h4');
-                    title.classList.add('text-gray-800');
-                    title.classList.remove('text-white');
-                }
-            });
-
-            mobileNav.classList.add('bg-white', 'border-gray-200');
-            mobileNav.classList.remove('bg-slate-900', 'border-slate-800');
-
-            themeIcon.className = "fas fa-moon text-xl text-gray-400";
-            localStorage.setItem('dalpa_dark_mode', 'false');
-        }
+        // Ejecutar carga de datos inicial
+        cargarMetricas();
     </script>
 </body>
 </html>
