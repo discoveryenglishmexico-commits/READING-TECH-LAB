@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
-            darkMode: 'class', // Habilitado modo oscuro por clases
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -27,10 +27,9 @@
         }
     </script>
     <style>
-        .transition-all-300 {
-            transition: all 0.3s ease;
+        .theme-transition {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
-        /* Custom scrollbar para un look más tech */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -43,9 +42,9 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 flex h-screen overflow-hidden text-slate-800 font-sans transition-all-300" id="body-container">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans theme-transition min-h-screen flex flex-col md:flex-row pb-20 md:pb-0" id="body-container">
 
-        <!-- BARRA LATERAL (Escritorio - Desktop) -->
+    <!-- BARRA LATERAL (Escritorio - Desktop) -->
     <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0 z-20">
         <div class="p-6 text-center border-b border-slate-800">
             <h1 class="text-3xl font-black text-apex-cyan tracking-wider">APEX</h1>
@@ -53,19 +52,16 @@
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2">
             <a href="index.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-chart-line w-5 text-gray-400"></i> Métricas APEX
+                <i class="fas fa-chart-line w-5"></i> Métricas APEX
             </a>
             <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-eye w-5 text-gray-400"></i> Simulador Óptico
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-50 cursor-not-allowed">
-                <i class="fas fa-dumbbell w-5"></i> Eye Tracker <span class="text-[8px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded-full ml-auto font-bold uppercase">Pronto</span>
+                <i class="fas fa-eye w-5"></i> Simulador Óptico
             </a>
             <a href="hub.html" class="flex items-center gap-3 px-4 py-3 bg-apex-blue rounded-xl text-white font-semibold shadow-lg shadow-apex-blue/20 transition-all">
-                <i class="fas fa-cubes w-5 text-apex-cyan"></i> APEX Hub
+                <i class="fas fa-book-open w-5 text-apex-cyan"></i> APEX Hub
             </a>
             <a href="lexico.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-spell-check w-5 text-gray-400"></i> Léxico
+                <i class="fas fa-spell-check w-5"></i> Léxico
             </a>
         </nav>
         <div class="p-4 border-t border-slate-800">
@@ -73,103 +69,189 @@
         </div>
     </aside>
 
-    <!-- Contenido Principal -->
-    <main class="flex-1 flex flex-col h-screen overflow-y-auto pb-24 md:pb-8">
-        <!-- Encabezado -->
-        <header class="bg-white dark:bg-slate-800 shadow-sm h-16 flex items-center justify-between px-6 md:px-8 z-10 shrink-0">
-            <h2 class="text-xl font-black text-slate-800 dark:text-white uppercase tracking-wider">APEX Hub</h2>
-            <div class="flex items-center gap-5">
-                <button id="theme-toggle" class="text-gray-400 hover:text-apex-blue transition-colors">
-                    <i class="fas fa-moon text-xl" id="theme-icon"></i>
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-h-screen">
+        <!-- Encabezado superior -->
+        <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 h-16 flex items-center justify-between px-6 md:px-8 shrink-0 theme-transition">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="md:hidden text-slate-600 dark:text-slate-400 hover:text-apex-blue"><i class="fas fa-arrow-left text-xl"></i></a>
+                <h2 class="text-lg font-bold text-slate-800 dark:text-white">APEX Hub - 16 Semanas</h2>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Botón de Modo Oscuro Real -->
+                <button id="dark-mode-toggle" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl flex items-center justify-center text-slate-500 dark:text-yellow-400 transition-colors">
+                    <i class="fas fa-moon text-lg" id="dark-icon"></i>
                 </button>
-                <div class="flex items-center gap-3 border-l pl-5 dark:border-slate-700">
+
+                <!-- Perfil -->
+                <div class="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-4">
                     <div class="text-right hidden sm:block">
-                        <p class="text-sm font-bold text-slate-800 dark:text-white">Sapien Focus Premium</p>
-                        <p class="text-xs text-apex-cyan font-bold uppercase tracking-widest">Control Activado</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Membresía Activa</p>
+                        <p class="text-sm font-black text-apex-blue dark:text-apex-cyan">Sapien Focus Premium</p>
                     </div>
-                    <div class="w-10 h-10 bg-apex-cyan rounded-full flex items-center justify-center text-white font-bold shadow-md">SF</div>
+                    <div class="w-10 h-10 bg-gradient-to-tr from-apex-blue to-apex-cyan rounded-xl flex items-center justify-center text-white font-extrabold shadow-md shadow-apex-cyan/20">
+                        SF
+                    </div>
                 </div>
             </div>
         </header>
 
         <!-- Zona de Contenidos -->
-        <div class="p-4 md:p-8 max-w-5xl mx-auto w-full space-y-8">
+        <main class="p-4 md:p-8 max-w-6xl w-full mx-auto space-y-6">
 
             <!-- Resumen de Progreso Académico -->
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6 theme-transition">
                 <div class="space-y-2 text-center md:text-left">
-                    <h3 class="text-2xl font-black text-slate-800 dark:text-white">Tu Ruta de Liberación Cognitiva</h3>
-                    <p class="text-sm text-slate-500 dark:text-gray-300">Completa las lecciones teóricas basadas en el método científico de asimilación profunda para desbloquear tu rango cerebral.</p>
+                    <h3 class="text-2xl font-black text-slate-800 dark:text-white">Tu Ruta de Liberación Cognitiva (4 Meses)</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Completa las lecciones teóricas y evaluaciones de tus Tomos para desbloquear tus insignias de soberanía mental.</p>
                 </div>
-                <div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border dark:border-slate-800 w-full md:w-auto justify-center">
-                    <div class="text-center px-4 border-r dark:border-slate-800">
-                        <p class="text-xs text-slate-400 font-bold uppercase">Rango Actual</p>
-                        <p id="rank-display" class="text-sm font-black text-apex-blue dark:text-apex-cyan mt-1">Lector Iniciado</p>
+                <div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 w-full md:w-auto justify-center shrink-0 theme-transition">
+                    <div class="text-center px-4 border-r border-slate-200 dark:border-slate-800">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Rango Actual</p>
+                        <p id="rank-display" class="text-xs font-black text-apex-blue dark:text-apex-cyan mt-1 uppercase">Lector Iniciado</p>
                     </div>
                     <div class="text-center px-4">
-                        <p class="text-xs text-slate-400 font-bold uppercase">Logros</p>
-                        <p id="badges-count" class="text-sm font-black text-slate-800 dark:text-white mt-1">0 / 3 Insignias</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Evaluaciones</p>
+                        <p id="badges-count" class="text-xs font-black text-slate-800 dark:text-white mt-1 uppercase">0 / 16 Aprobadas</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Grid: Lista de Módulos (Izquierda) y Lector de Lecciones / Evaluaciones (Derecha) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Grid de Módulos (Semanas) y Visor de Lección -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-                <!-- Lista de Lecciones (4 Columnas en LG) -->
+                <!-- Selector de Semanas por Módulos (5 Columnas) -->
                 <div class="lg:col-span-5 space-y-4">
-                    <h4 class="font-black text-slate-400 text-xs uppercase tracking-widest">Módulos del Sistema</h4>
+                    <h4 class="font-black text-slate-400 text-xs uppercase tracking-widest">Currículum del Sistema</h4>
 
-                    <!-- Tarjeta Módulo 1 -->
-                    <div id="mod-1" onclick="loadLesson(1)" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border-2 border-apex-blue dark:border-apex-cyan shadow-sm cursor-pointer hover:shadow-md transition-all-300">
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] bg-apex-blue/10 text-apex-blue dark:bg-apex-cyan/20 dark:text-apex-cyan px-2 py-0.5 rounded-full font-black uppercase">Módulo 1</span>
-                            <span id="badge-status-1" class="text-xs text-slate-400"><i class="far fa-circle"></i></span>
+                    <!-- Acordeón / Bloques de los 4 Módulos -->
+                    <div class="space-y-3" id="syllabus-accordion">
+                        <!-- Módulo 1 -->
+                        <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden theme-transition">
+                            <button onclick="toggleAccordion(1)" class="w-full p-4 flex justify-between items-center text-left font-black text-sm text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-950">
+                                <span>Módulo 1: Core Focus (Tomo 1)</span>
+                                <i class="fas fa-chevron-down transition-transform" id="acc-icon-1"></i>
+                            </button>
+                            <div class="p-2 space-y-1 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900" id="acc-content-1">
+                                <button id="btn-week-1" onclick="selectWeek(1)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 1: Desacondicionamiento</span>
+                                    <span id="badge-week-1"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-2" onclick="selectWeek(2)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 2: Erradicación de Regresión</span>
+                                    <span id="badge-week-2"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-3" onclick="selectWeek(3)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 3: Ergonomía de Soberanía</span>
+                                    <span id="badge-week-3"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-4" onclick="selectWeek(4)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 4: Diagnóstico Inicial</span>
+                                    <span id="badge-week-4"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                            </div>
                         </div>
-                        <h5 class="font-bold text-slate-800 dark:text-white mt-3">Soberanía vs. Saturación</h5>
-                        <p class="text-xs text-slate-400 mt-1">La trampa del scroll infinito, los malos hábitos (regresión, subvocalización) y las bases cognitivas.</p>
-                    </div>
 
-                    <!-- Tarjeta Módulo 2 -->
-                    <div id="mod-2" onclick="loadLesson(2)" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm cursor-pointer hover:shadow-md transition-all-300">
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-gray-300 px-2 py-0.5 rounded-full font-black uppercase">Módulo 2</span>
-                            <span id="badge-status-2" class="text-xs text-slate-400"><i class="far fa-circle"></i></span>
+                        <!-- Módulo 2 -->
+                        <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden theme-transition">
+                            <button onclick="toggleAccordion(2)" class="w-full p-4 flex justify-between items-center text-left font-black text-sm text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-950">
+                                <span>Módulo 2: Deep Work (Tomo 2)</span>
+                                <i class="fas fa-chevron-down transition-transform" id="acc-icon-2"></i>
+                            </button>
+                            <div class="p-2 space-y-1 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900 hidden" id="acc-content-2">
+                                <button id="btn-week-5" onclick="selectWeek(5)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 5: Eye Tracker 1 (Lineal)</span>
+                                    <span id="badge-week-5"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-6" onclick="selectWeek(6)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 6: Eye Tracker 2 (Periférico)</span>
+                                    <span id="badge-week-6"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-7" onclick="selectWeek(7)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 7: Eye Tracker 3 (Bloques)</span>
+                                    <span id="badge-week-7"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-8" onclick="selectWeek(8)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 8: Disciplinas Cruzadas</span>
+                                    <span id="badge-week-8"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                            </div>
                         </div>
-                        <h5 class="font-bold text-slate-800 dark:text-white mt-3">Biomecánica Ocular</h5>
-                        <p class="text-xs text-slate-400 mt-1">Entrenamiento físico con los eye trackers y técnicas para expandir la visión periférica.</p>
-                    </div>
 
-                    <!-- Tarjeta Módulo 3 -->
-                    <div id="mod-3" onclick="loadLesson(3)" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm cursor-pointer hover:shadow-md transition-all-300">
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-gray-300 px-2 py-0.5 rounded-full font-black uppercase">Módulo 3</span>
-                            <span id="badge-status-3" class="text-xs text-slate-400"><i class="far fa-circle"></i></span>
+                        <!-- Módulo 3 -->
+                        <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden theme-transition">
+                            <button onclick="toggleAccordion(3)" class="w-full p-4 flex justify-between items-center text-left font-black text-sm text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-950">
+                                <span>Módulo 3: High Performance (Tomo 3)</span>
+                                <i class="fas fa-chevron-down transition-transform" id="acc-icon-3"></i>
+                            </button>
+                            <div class="p-2 space-y-1 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900 hidden" id="acc-content-3">
+                                <button id="btn-week-9" onclick="selectWeek(9)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 9: TIICR - Título e Índice</span>
+                                    <span id="badge-week-9"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-10" onclick="selectWeek(10)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 10: TIICR - Intro y Contenido</span>
+                                    <span id="badge-week-10"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-11" onclick="selectWeek(11)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 11: TIICR - Revisión</span>
+                                    <span id="badge-week-11"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-12" onclick="selectWeek(12)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 12: Toma de Notas Activa</span>
+                                    <span id="badge-week-12"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                            </div>
                         </div>
-                        <h5 class="font-bold text-slate-800 dark:text-white mt-3">Fórmula TIICR</h5>
-                        <p class="text-xs text-slate-400 mt-1">Asimilación profunda y secuencial de textos complejos: Título, Índice, Introducción, Contenido, Revisión.</p>
+
+                        <!-- Módulo 4 -->
+                        <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden theme-transition">
+                            <button onclick="toggleAccordion(4)" class="w-full p-4 flex justify-between items-center text-left font-black text-sm text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-950">
+                                <span>Módulo 4: Peak Integration</span>
+                                <i class="fas fa-chevron-down transition-transform" id="acc-icon-4"></i>
+                            </button>
+                            <div class="p-2 space-y-1 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900 hidden" id="acc-content-4">
+                                <button id="btn-week-13" onclick="selectWeek(13)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 13: Resistencia de Enfoque</span>
+                                    <span id="badge-week-13"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-14" onclick="selectWeek(14)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 14: Alta Complejidad</span>
+                                    <span id="badge-week-14"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-15" onclick="selectWeek(15)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 15: Sincronización del Léxico</span>
+                                    <span id="badge-week-15"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                                <button id="btn-week-16" onclick="selectWeek(16)" class="w-full p-3 rounded-xl text-left text-xs font-bold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400">
+                                    <span>Semana 16: Certificación Final</span>
+                                    <span id="badge-week-16"><i class="far fa-circle text-slate-400"></i></span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Visor Activo / Zona de Evaluación (7 Columnas en LG) -->
-                <div class="lg:col-span-7 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/50 shadow-lg overflow-hidden" id="viewer-container">
+                <!-- Visor Activo / Zona de Lección y Evaluación (7 Columnas) -->
+                <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden theme-transition" id="viewer-container">
 
                     <!-- Cabecera del Visor -->
-                    <div class="p-6 bg-slate-900 text-white flex justify-between items-center">
+                    <div class="p-6 bg-slate-900 text-white flex justify-between items-center border-b border-slate-800">
                         <div>
-                            <span class="text-xs text-apex-cyan uppercase tracking-widest font-black" id="viewer-subtitle">Fase Teórica</span>
+                            <span class="text-[10px] text-apex-cyan uppercase tracking-widest font-black" id="viewer-subtitle">Fase Teórica</span>
                             <h4 class="text-lg font-black mt-1" id="viewer-title">Cargando Lección...</h4>
                         </div>
                         <div class="text-2xl text-apex-cyan"><i class="fas fa-brain animate-pulse"></i></div>
                     </div>
 
                     <!-- Cuerpo de la Lección -->
-                    <div class="p-6 md:p-8 space-y-6" id="viewer-body">
-                        <!-- Aquí se inyecta dinámicamente la lección -->
+                    <div class="p-6 md:p-8 space-y-6 overflow-y-auto max-h-[400px]" id="viewer-body">
+                        <!-- Se inyecta dinámicamente con JS -->
                     </div>
 
                     <!-- Pie del Visor con Acciones -->
-                    <div class="p-6 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/30" id="viewer-footer">
+                    <div class="p-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50 dark:bg-slate-950/40 theme-transition" id="viewer-footer">
                         <!-- Botón de ir al Simulador u opción de Quiz -->
                     </div>
 
@@ -177,9 +259,10 @@
 
             </div>
 
-        </div>
+        </main>
+    </div>
 
-        <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
+    <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 h-16 flex md:hidden items-center justify-around px-4 z-50 theme-transition shadow-2xl">
         <a href="index.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
             <i class="fas fa-chart-line text-lg"></i>
@@ -190,7 +273,7 @@
             <span class="text-[9px] font-medium">Simulador</span>
         </a>
         <a href="hub.html" class="flex flex-col items-center gap-1 text-apex-blue dark:text-apex-cyan">
-            <i class="fas fa-cubes text-lg"></i>
+            <i class="fas fa-book-open text-lg"></i>
             <span class="text-[9px] font-bold">Hub</span>
         </a>
         <a href="lexico.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
@@ -198,11 +281,10 @@
             <span class="text-[9px] font-medium">Léxico</span>
         </a>
     </nav>
-    </main>
 
     <!-- Modal de Evaluación (Quiz Interactivos) -->
     <div id="quiz-modal" class="fixed inset-0 bg-slate-950/80 items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
-        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl border dark:border-slate-700 space-y-6 relative">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-6 relative theme-transition">
             <button onclick="closeQuiz()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i class="fas fa-times text-xl"></i></button>
             <div class="text-center space-y-2">
                 <span class="text-[10px] bg-apex-cyan/10 text-apex-cyan px-2.5 py-1 rounded-full font-black uppercase tracking-widest">Evaluación APEX</span>
@@ -216,7 +298,7 @@
             </div>
 
             <!-- Botón de Envío -->
-            <button id="btn-submit-quiz" class="w-full bg-apex-blue text-white font-black py-4 rounded-xl shadow-lg hover:bg-blue-700 transition-all text-sm flex items-center justify-center gap-2">
+            <button id="btn-submit-quiz" class="w-full bg-apex-blue text-white font-black py-4 rounded-xl shadow-lg hover:bg-blue-700 transition-all text-sm flex items-center justify-center gap-2 shadow-apex-blue/20">
                 Validar Respuestas <i class="fas fa-certificate"></i>
             </button>
         </div>
@@ -224,181 +306,329 @@
 
     <!-- Script de Interactividad y Control Académico -->
     <script>
-        // Datos de Lecciones y Preguntas basados en los principios científicos de APEX Kinetix
+        // Data del plan de estudios de 16 semanas cargada desde Python
         const lessons = {
             1: {
-                subtitle: "Soberanía Cognitiva vs. Saturación Digital",
-                title: "1. Reclamando el Control Atencional",
+                subtitle: "Módulo 1: Core Focus (Tomo 1 - Bases Biomecánicas)",
+                title: "Semana 1: Desacondicionamiento Visual",
+                desc: "Rompiendo la fijación silábica y el hábito de subvocalización.",
                 content: `
                     <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        En la era de la saturación digital, las plataformas móviles están diseñadas para secuestrar nuestra atención a través del scroll infinito y estímulos efímeros. Esto ha fragmentado nuestro enfoque, creando el hábito inconsciente de leer de manera errática e imprecisa.
+                        ¡Bienvenido a tu primera semana de entrenamiento cognitivo! La fijación silábica es el hábito infantil de leer palabra por palabra de forma lenta y pausada. Esto fatiga innecesariamente tus fotorreceptores retinianos y limita tu velocidad de procesamiento mental a la del habla física (aproximadamente 150-200 PPM).
                     </p>
                     <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border dark:border-slate-700/50 space-y-2">
-                        <h6 class="font-bold text-xs text-apex-blue uppercase tracking-wide">Los Dos Grandes Saboteadores:</h6>
-                        <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-1 list-disc list-inside">
-                            <li><span class="font-semibold text-slate-700 dark:text-slate-300">La Subvocalización:</span> Repetir mentalmente cada palabra a medida que la lees, lo que limita tu velocidad de procesamiento a la velocidad de tu habla (máximo 150-200 PPM).</li>
-                            <li><span class="font-semibold text-slate-700 dark:text-slate-300">La Regresión Ocular:</span> El retroceso involuntario e innecesario de tus ojos hacia palabras ya leídas por falta de confianza o concentración.</li>
-                        </ul>
+                        <h6 class="font-bold text-xs text-apex-blue uppercase tracking-wide">Tu primer objetivo biomecánico:</h6>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            Aprenderás a silenciar la voz interna que pronuncia mentalmente las palabras. El cerebro es capaz de reconocer imágenes y conceptos al instante (procesamiento visual directo) sin necesidad de traducirlos a sonido en tu mente.
+                        </p>
                     </div>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        El método <strong>APEX</strong> no es "correr por velocidad", sino devolverle al usuario el control y la soberanía atencional de su propia mente. Al silenciar la voz mental y avanzar a un ritmo continuo, logramos un enfoque inquebrantable (<strong>Sapien Focus</strong>).
-                    </p>
                 `,
-                footer: `
-                    <button onclick="openQuiz(1)" class="w-full sm:w-auto bg-apex-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 shadow-md transition-all text-sm flex items-center justify-center gap-2">
-                        Realizar Test de Enfoque <i class="fas fa-question-circle"></i>
-                    </button>
-                `,
-                quiz: {
-                    title: "Test de Enfoque: Módulo 1",
-                    questions: [
-                        {
-                            q: "¿Cuál es el principal inconveniente de la subvocalización al leer?",
-                            options: [
-                                "Provoca cansancio visual extremo en pantallas.",
-                                "Limita la velocidad de lectura a la velocidad física del habla.",
-                                "Aumenta innecesariamente las regresiones oculares."
-                            ],
-                            correct: 1
-                        },
-                        {
-                            q: "¿Cuál es la definición de soberanía atencional en APEX?",
-                            options: [
-                                "Aumentar la velocidad de scroll móvil sin perder datos.",
-                                "Recuperar el control, la atención y la profundidad cognitiva frente al estímulo pasivo.",
-                                "Memorizar libros enteros usando técnicas mnemotécnicas clásicas."
-                            ],
-                            correct: 1
-                        }
-                    ]
-                }
+                quiz: {"title": "Test de Validación - Semana 1", "questions": [{"q": "¿Por qué la lectura palabra por palabra limita tu rendimiento?", "options": ["Porque provoca un parpadeo ocular excesivo y reseca la córnea.", "Porque limita tu velocidad de procesamiento a la velocidad de tu habla física (150-200 PPM).", "Porque disminuye la iluminación natural del entorno de lectura."], "correct": 1}]}
             },
             2: {
-                subtitle: "Entrenamiento Biomecánico del Ojo",
-                title: "2. Kinetix: El Poder de los Eye Trackers",
+                subtitle: "Módulo 1: Core Focus (Tomo 1 - Bases Biomecánicas)",
+                title: "Semana 2: Erradicación del Reflejo de Regresión",
+                desc: "Eliminando los retrocesos involuntarios del ojo.",
                 content: `
                     <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Tus ojos se mueven gracias a un grupo de músculos que, al igual que los músculos del cuerpo, pueden atrofiarse si solo se les expone a lecturas cortas y pasivas en redes sociales, o entrenarse si se les somete a un acondicionamiento adecuado.
+                        La regresión ocular es el hábito de retroceder involuntariamente a leer palabras o renglones que ya habías pasado. Esto ocurre por falta de confianza y fragmenta por completo tu ritmo de enfoque (Focus Streak).
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-blue-50/50 dark:bg-slate-900/30 p-4 rounded-xl border border-blue-100 dark:border-slate-700/50">
-                            <h6 class="font-bold text-xs text-apex-blue uppercase tracking-wide">Eye Trackers 1 y 3</h6>
-                            <p class="text-xs text-slate-500 mt-1">Obligan a la retina a mantener una velocidad y dirección lineal de arriba hacia abajo, impidiendo el retroceso y el cansancio.</p>
-                        </div>
-                        <div class="bg-cyan-50/50 dark:bg-slate-900/30 p-4 rounded-xl border border-cyan-100 dark:border-slate-700/50">
-                            <h6 class="font-bold text-xs text-apex-cyan uppercase tracking-wide">Eye Tracker 2 (Visión Periférica)</h6>
-                            <p class="text-xs text-slate-500 mt-1">Entrena tu ojo para fijar el enfoque estrictamente en el centro de la página, captando las palabras laterales "de un solo golpe".</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Al usar el <strong>Simulador Óptico</strong> digital, estimulamos las fijaciones de la retina reduciendo el movimiento ocular horizontal. El ojo aprende a captar frases completas en vez de saltar de letra en letra de forma ineficiente.
-                    </p>
-                `,
-                footer: `
-                    <div class="flex flex-col sm:flex-row gap-3 w-full justify-between items-center">
-                        <a href="simulador.html" class="text-xs text-apex-cyan hover:underline font-bold"><i class="fas fa-arrow-left"></i> Ir al Simulador Óptico</a>
-                        <button onclick="openQuiz(2)" class="w-full sm:w-auto bg-apex-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 shadow-md transition-all text-sm flex items-center justify-center gap-2">
-                            Realizar Test Biomecánico <i class="fas fa-question-circle"></i>
-                        </button>
+                    <div class="bg-blue-50/50 dark:bg-slate-900/50 p-4 rounded-xl border border-blue-100 dark:border-slate-700/50">
+                        <h6 class="font-bold text-xs text-apex-blue uppercase tracking-wide">La Regla de Dirección Lineal:</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Entrenarás a tus ojos para mantener una trayectoria lineal, continua y siempre hacia adelante. Al eliminar la regresión, el cerebro se ve obligado a mantener un estado de atención profunda activa, asimilando la información de forma mucho más eficaz.
+                        </p>
                     </div>
                 `,
-                quiz: {
-                    title: "Test de Biomecánica: Módulo 2",
-                    questions: [
-                        {
-                            q: "¿Qué entrena específicamente el Eye Tracker 2 (Visión Periférica)?",
-                            options: [
-                                "Elimina el cansancio por luces azules de las pantallas.",
-                                "La capacidad de captar palabras a los lados fijando el enfoque en el centro.",
-                                "Aumentar la cantidad de regresiones por minuto."
-                            ],
-                            correct: 1
-                        },
-                        {
-                            q: "¿Cuál es la ventaja de reducir las fijaciones oculares por renglón?",
-                            options: [
-                                "Que el cerebro puede descansar mientras lee pasivamente.",
-                                "Permite absorber bloques completos de texto con menos movimientos musculares oculares.",
-                                "Mejora únicamente la lectura de textos en idiomas extranjeros."
-                            ],
-                            correct: 1
-                        }
-                    ]
-                }
+                quiz: {"title": "Test de Validación - Semana 2", "questions": [{"q": "¿Qué efecto tiene la regresión ocular en tu lectura?", "options": ["Ayuda a repasar conceptos difíciles y memorizarlos de inmediato.", "Destruye el ritmo de enfoque continuo y fragmenta tu comprensión cognitiva.", "Aumenta la visión periférica de forma natural."], "correct": 1}]}
             },
             3: {
-                subtitle: "Técnica de Comprensión APEX",
-                title: "3. La Fórmula TIICR de Asimilación",
+                subtitle: "Módulo 1: Core Focus (Tomo 1 - Bases Biomecánicas)",
+                title: "Semana 3: Ergonomía de Soberanía Atencional",
+                desc: "Postura corporal, distancia de lectura y la Regla de Luz Oblicua.",
                 content: `
                     <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Leer rápido sin asimilación real es inútil. El método <strong>APEX Kinetix</strong> utiliza una estructura metodológica denominada <strong>TIICR</strong> que prepara tu cerebro cognitivamente para asimilar textos y libros complejos con total lucidez.
+                        El entorno físico es un pilar crítico en la metodología Kinetix. No puedes alcanzar la soberanía atencional si tu postura o tu iluminación están fatigando tu cuerpo de manera innecesaria.
                     </p>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center font-bold text-xs shrink-0">T</span>
-                            <p class="text-xs text-slate-500 dark:text-slate-400"><strong class="text-slate-700 dark:text-slate-200">Título:</strong> Conecta cognitivamente con el tema central del libro o documento.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border dark:border-slate-700/50">
+                            <h6 class="font-bold text-xs text-slate-700 dark:text-slate-200 uppercase">La Luz Oblicua a 45°:</h6>
+                            <p class="text-[11px] text-slate-500 mt-1">La luz debe provenir de un ángulo inclinado de 45 grados para evitar sombras o reflejos directos en el papel o la pantalla que agoten tu visión.</p>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center font-bold text-xs shrink-0">I</span>
-                            <p class="text-xs text-slate-500 dark:text-slate-400"><strong class="text-slate-700 dark:text-slate-200">Índice:</strong> Mapea la estructura y jerarquía de ideas del autor.</p>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center font-bold text-xs shrink-0">I</span>
-                            <p class="text-xs text-slate-500 dark:text-slate-400"><strong class="text-slate-700 dark:text-slate-200">Introducción:</strong> Capta el planteamiento del problema y objetivos.</p>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center font-bold text-xs shrink-0">C</span>
-                            <p class="text-xs text-slate-500 dark:text-slate-400"><strong class="text-slate-700 dark:text-slate-200">Contenido:</strong> Procesa el texto de forma ágil usando tus Eye Trackers.</p>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center font-bold text-xs shrink-0">R</span>
-                            <p class="text-xs text-slate-500 dark:text-slate-400"><strong class="text-slate-700 dark:text-slate-200">Revisión:</strong> El cierre y relectura de fragmentos complejos para consolidar la información en la memoria a largo plazo.</p>
+                        <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border dark:border-slate-700/50">
+                            <h6 class="font-bold text-xs text-slate-700 dark:text-slate-200 uppercase">Distancia y Postura:</h6>
+                            <p class="text-[11px] text-slate-500 mt-1">Mantén tu espalda erguida y una distancia mínima de 30 a 40 centímetros entre tus ojos y el texto para relajar los músculos ciliares.</p>
                         </div>
                     </div>
                 `,
-                footer: `
-                    <button onclick="openQuiz(3)" class="w-full sm:w-auto bg-apex-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 shadow-md transition-all text-sm flex items-center justify-center gap-2">
-                        Realizar Test de Asimilación <i class="fas fa-question-circle"></i>
-                    </button>
+                quiz: {"title": "Test de Validación - Semana 3", "questions": [{"q": "¿Cuál es el ángulo de iluminación óptimo recomendado en el método Kinetix?", "options": ["90 grados (iluminación vertical directa).", "45 grados (iluminación oblicua para evitar sombras y reflejos fatigosos).", "15 grados (iluminación casi paralela)."], "correct": 1}]}
+            },
+            4: {
+                subtitle: "Módulo 1: Core Focus (Tomo 1 - Bases Biomecánicas)",
+                title: "Semana 4: Diagnóstico Óptico Inicial",
+                desc: "Evaluación formal de tu Ritmo de Enfoque y Retención Base.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Ha llegado el momento de consolidar tu primer mes de entrenamiento. En esta semana realizarás tu primera evaluación estandarizada utilizando el protocolo de diagnóstico oficial de 500 palabras de APEX Kinetix.
+                    </p>
+                    <div class="bg-emerald-50 dark:bg-emerald-950/20 p-4 rounded-xl border border-emerald-100 dark:border-emerald-900/50">
+                        <h6 class="font-bold text-xs text-emerald-700 dark:text-emerald-400 uppercase">Fórmula de Medición:</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Medirás el tiempo total en segundos al leer el texto de diagnóstico y calcularás tus PPM utilizando la fórmula estándar: <strong>(500 / segundos) * 60</strong>. El cuestionario de comprensión validará tu retención cognitiva inicial.
+                        </p>
+                    </div>
                 `,
-                quiz: {
-                    title: "Test de Comprensión: Módulo 3",
-                    questions: [
-                        {
-                            q: "¿Qué significan las siglas TIICR en el orden correcto?",
-                            options: [
-                                "Texto, Índice, Ilustraciones, Comprensión, Repetición.",
-                                "Título, Índice, Introducción, Contenido, Revisión.",
-                                "Título, Ideas, Interés, Concentración, Retención."
-                            ],
-                            correct: 1
-                        },
-                        {
-                            q: "¿Para qué sirve el paso de la 'Revisión'?",
-                            options: [
-                                "Para buscar faltas de ortografía en el material impreso.",
-                                "Consolidar la información en la memoria a largo plazo y resolver dudas residuales.",
-                                "Reducir la velocidad de lectura drásticamente de por vida."
-                            ],
-                            correct: 1
-                        }
-                    ]
-                }
-            }
+                quiz: {"title": "Test de Validación - Semana 4", "questions": [{"q": "¿Cómo se calcula el Ritmo de Enfoque en PPM para el texto de diagnóstico de 500 palabras?", "options": ["Multiplicando las palabras leídas por las horas de estudio semanales.", "Dividiendo 500 palabras entre el tiempo en segundos y multiplicando el resultado por 60.", "Midiendo únicamente las palabras que lograste recordar de forma pasiva."], "correct": 1}]}
+            },
+            5: {
+                subtitle: "Módulo 2: Deep Work (Tomo 2 - Biomecánica Kinetix)",
+                title: "Semana 5: Gimnasia Ocular con Eye Tracker 1",
+                desc: "Movimiento rápido ojo-cerebro y salto visual de arriba hacia abajo.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Tus ojos se mueven gracias a un grupo de pequeños músculos ciliares y extraoculares que, al igual que los músculos del cuerpo, se atrofian con el sedentarismo digital o se potencian con la gimnasia ocular adecuada.
+                    </p>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border dark:border-slate-700/50">
+                        <h6 class="font-bold text-xs text-slate-700 dark:text-slate-200 uppercase">Eye Tracker 1 (Entrenamiento Lineal):</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Este ejercicio entrena a la retina para realizar fijaciones precisas, evitando oscilaciones laterales innecesarias. El ojo aprende a descender de renglón de manera lineal, rápida y con una precisión biomecánica impecable.
+                        </p>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 5", "questions": [{"q": "¿Qué entrena principalmente el ejercicio del Eye Tracker 1?", "options": ["La capacidad de enfocar en condiciones de total oscuridad.", "El movimiento vertical preciso de los ojos para realizar saltos de renglón eficientes sin fatiga lateral.", "La asimilación de términos mnemotécnicos complejos."], "correct": 1}]}
+            },
+            6: {
+                subtitle: "Módulo 2: Deep Work (Tomo 2 - Biomecánica Kinetix)",
+                title: "Semana 6: Expansión Periférica con Eye Tracker 2",
+                desc: "La técnica del centro en blanco para captar extremos.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        El <strong>Eye Tracker 2</strong> está diseñado para entrenar el foveado periférico de tu retina. En lugar de mover tus ojos horizontalmente de izquierda a derecha a lo largo del renglón, entrenarás para fijar tu enfoque estrictamente en el centro de la página.
+                    </p>
+                    <div class="bg-blue-50/50 dark:bg-slate-900/50 p-4 rounded-xl border border-blue-100 dark:border-slate-700/50">
+                        <h6 class="font-bold text-xs text-apex-blue uppercase">Gimnasia Columnas:</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Al enfocar la línea imaginaria de división central, forzarás a tu campo visual periférico a captar las palabras situadas a los extremos de forma instantánea. Esto duplica el volumen de texto procesado por cada fijación ocular.
+                        </p>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 6", "questions": [{"q": "¿Cómo funciona la expansión periférica del Eye Tracker 2?", "options": ["Fijando la mirada en el centro de la pantalla y captando las palabras laterales de forma periférica.", "Moviendo los ojos lo más rápido posible de izquierda a derecha.", "Cerrando un ojo para descansar alternadamente cada retina."], "correct": 0}]}
+            },
+            7: {
+                subtitle: "Módulo 2: Deep Work (Tomo 2 - Biomecánica Kinetix)",
+                title: "Semana 7: Eye Tracker 3 y Asimilación de Bloques",
+                desc: "Agrupamiento visual de conceptos complejos.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        La asimilación de bloques es la habilidad avanzada de captar grupos de 3 o 4 palabras en una sola fijación ocular de milisegundos, en lugar de realizar fijaciones mecánicas por cada palabra individual.
+                    </p>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border dark:border-slate-700/50">
+                        <h6 class="font-bold text-xs text-slate-700 dark:text-slate-200 uppercase">La técnica de Fijación Dinámica:</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            El <strong>Eye Tracker 3</strong> entrena tus ojos para realizar fijaciones rítmicas espaciadas en el renglón. Dejas de leer letras y comienzas a absorber bloques lógicos de información de golpe.
+                        </p>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validation - Semana 7", "questions": [{"q": "¿Qué beneficio tiene la asimilación por bloques de palabras?", "options": ["Permite leer únicamente las vocales del texto.", "Reduce la cantidad de fijaciones del ojo por renglón, acelerando la velocidad y reduciendo el cansancio.", "Aumenta la velocidad de parpadeo de forma controlada."], "correct": 1}]}
+            },
+            8: {
+                subtitle: "Módulo 2: Deep Work (Tomo 2 - Biomecánica Kinetix)",
+                title: "Semana 8: Agilidad de Lectura en Disciplinas Cruzadas",
+                desc: "Asimilación profunda de Ciencia, Historia y Literatura.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        No todos los textos se estructuran de la misma manera. El cerebro de un estudiante APEX debe aprender a adaptar su ritmo y campo de visión periférica según la densidad cognitiva de la lectura.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900/50 border rounded-xl">
+                            <strong class="text-xs text-slate-700 dark:text-slate-200">Ciencia:</strong>
+                            <p class="text-[10px] text-slate-500 mt-1">Lectura analítica densa, ritmo de enfoque pausado para digerir datos.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900/50 border rounded-xl">
+                            <strong class="text-xs text-slate-700 dark:text-slate-200">Historia:</strong>
+                            <p class="text-[10px] text-slate-500 mt-1">Lectura lineal narrativa, ideal para acelerar PPM y captar bloques.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900/50 border rounded-xl">
+                            <strong class="text-xs text-slate-700 dark:text-slate-200">Literatura:</strong>
+                            <p class="text-[10px] text-slate-500 mt-1">Lectura rítmica, asimilación de metáforas e imágenes cognitivas de forma visual.</p>
+                        </div>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 8", "questions": [{"q": "¿Cómo se debe abordar la velocidad de lectura en disciplinas cruzadas?", "options": ["Manteniendo una velocidad fija idéntica para cualquier tipo de texto.", "Adaptando la velocidad dinámicamente según la densidad y complejidad del contenido del texto.", "Saltándose todos los párrafos introductorios."], "correct": 1}]}
+            },
+            9: {
+                subtitle: "Módulo 3: High Performance (Tomo 3 - Fórmula TIICR)",
+                title: "Semana 9: Fórmula TIICR - Fase T (Título) e I (Índice)",
+                desc: "Preparando el mapa mental de tu lectura.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        El método científico de asimilación profunda comienza preparando al cerebro para recibir la información de forma jerarquizada. Nunca debes sumergirte en una lectura pesada "a ciegas".
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border dark:border-slate-700/50">
+                            <span class="w-6 h-6 bg-slate-900 text-white rounded flex items-center justify-center font-bold text-xs shrink-0">T</span>
+                            <div>
+                                <strong class="text-xs text-slate-700 dark:text-slate-200">Título:</strong>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Analiza el título principal para activar tus conocimientos previos y tus redes neuronales sobre el tema.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border dark:border-slate-700/50">
+                            <span class="w-6 h-6 bg-slate-900 text-white rounded flex items-center justify-center font-bold text-xs shrink-0">I</span>
+                            <div>
+                                <strong class="text-xs text-slate-700 dark:text-slate-200">Índice:</strong>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Estudia la estructura completa del libro o documento. Es el mapa del territorio del autor.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 9", "questions": [{"q": "¿Cuál es el propósito del paso 'Índice' en la Fórmula TIICR?", "options": ["Descubrir errores ortográficos en el libro.", "Mapear la estructura y jerarquía temática para preparar un esquema de asimilación cognitiva previa.", "Memorizar los nombres de todos los capítulos."], "correct": 1}]}
+            },
+            10: {
+                subtitle: "Módulo 3: High Performance (Tomo 3 - Fórmula TIICR)",
+                title: "Semana 10: Fórmula TIICR - Fase I (Introducción) y C (Contenido)",
+                desc: "Identificando la tesis y aplicando tu entrenamiento óptico.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Con el mapa temático establecido, es momento de definir los objetivos y asimilar la tesis del autor con total agilidad.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border dark:border-slate-700/50">
+                            <span class="w-6 h-6 bg-slate-900 text-white rounded flex items-center justify-center font-bold text-xs shrink-0">I</span>
+                            <div>
+                                <strong class="text-xs text-slate-700 dark:text-slate-200">Introducción:</strong>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Identifica el problema central planteado, las hipótesis y la conclusión sugerida por el autor.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border dark:border-slate-700/50">
+                            <span class="w-6 h-6 bg-slate-900 text-white rounded flex items-center justify-center font-bold text-xs shrink-0">C</span>
+                            <div>
+                                <strong class="text-xs text-slate-700 dark:text-slate-200">Contenido:</strong>
+                                <p class="text-[11px] text-slate-500 mt-0.5">La fase operativa. Utiliza tus técnicas de gimnasia ocular y Eye Trackers para asimilar el texto rápidamente.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 10", "questions": [{"q": "¿Qué se busca captar en la fase 'Introducción' de la Fórmula TIICR?", "options": ["La biografía detallada del autor del material.", "El planteamiento del problema, los objetivos y la dirección de la tesis central.", "Los números de página correspondientes al prólogo."], "correct": 1}]}
+            },
+            11: {
+                subtitle: "Módulo 3: High Performance (Tomo 3 - Fórmula TIICR)",
+                title: "Semana 11: Fórmula TIICR - Fase R (Revisión)",
+                desc: "Fijación a largo plazo y asimilación de fragmentos complejos.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        El error más común es cerrar un libro de inmediato al terminarlo. Para garantizar una retención a largo plazo y resolver dudas residuales, el paso final es indispensable.
+                    </p>
+                    <div class="bg-blue-50/50 dark:bg-slate-900/50 p-4 rounded-xl border border-blue-100 dark:border-slate-700/50 flex gap-3 items-start">
+                        <span class="w-6 h-6 bg-slate-900 text-white rounded flex items-center justify-center font-bold text-xs shrink-0">R</span>
+                        <div>
+                            <strong class="text-xs text-slate-700 dark:text-slate-200 uppercase">Revisión:</strong>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Realizarás un repaso ágil de fragmentos complejos de la lectura. En esta etapa, consolidas los conceptos clave en tu memoria de largo plazo y despejas dudas residuales mediante un re-enfoque selectivo.
+                            </p>
+                        </div>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 11", "questions": [{"q": "¿Qué se realiza en la última fase de 'Revisión' de la Fórmula TIICR?", "options": ["Cerrar el libro e iniciar inmediatamente otra actividad sin repasar.", "Consolidar conceptos clave en la memoria de largo plazo y despejar dudas mediante re-enfoques selectivos de secciones críticas.", "Hacer una crítica destructiva de la ortografía del autor."], "correct": 1}]}
+            },
+            12: {
+                subtitle: "Módulo 3: High Performance (Tomo 3 - Fórmula TIICR)",
+                title: "Semana 12: Asimilación y Toma de Notas Activa",
+                desc: "Estructuras conceptuales inteligentes libre de copiar pasivamente.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Copiar fragmentos de texto palabra por palabra es una actividad pasiva e ineficiente que no genera aprendizaje. El método APEX te enseña a procesar la información y reconstruirla bajo tu propio marco cognitivo.
+                    </p>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border dark:border-slate-700/50">
+                        <h6 class="font-bold text-xs text-slate-700 dark:text-slate-200 uppercase">La Reconstrucción de Conceptos:</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Aprenderás a esquematizar tus notas usando mapas lógicos o notas sintéticas inmediatamente después de leer con el método TIICR, garantizando un aprendizaje profundo y permanente.
+                        </p>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 12", "questions": [{"q": "¿Por qué copiar fragmentos de texto literalmente no es recomendable en el método APEX?", "options": ["Porque está prohibido por los derechos de autor internacionales.", "Porque es un proceso pasivo e ineficiente que no genera un verdadero procesamiento mental profundo ni asimilación duradera.", "Porque el papel digital no permite la escritura fluida."], "correct": 1}]}
+            },
+            13: {
+                subtitle: "Módulo 4: Peak Integration (Tomo 3 - Mente APEX de Élite)",
+                title: "Semana 13: Resistencia de Enfoque Sapiens",
+                desc: "Superando la fatiga cognitiva y la distracción digital.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Los teléfonos celulares y el flujo interminable de notificaciones han atrofiado nuestra capacidad para sostener lecturas largas y profundas. En esta semana entrenarás la resistencia atencional activa.
+                    </p>
+                    <div class="bg-emerald-50 dark:bg-emerald-950/20 p-4 rounded-xl border border-emerald-100 dark:border-emerald-900/50">
+                        <h6 class="font-bold text-xs text-emerald-700 dark:text-emerald-400 uppercase">La Resistencia Atencional:</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Aprenderás a mantener la concentración profunda (Sapien Focus) durante bloques de lectura de 30 o 45 minutos continuos sin distracciones ni fatiga mental, recuperando tu total soberanía mental.
+                        </p>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 13", "questions": [{"q": "¿Qué busca el entrenamiento de resistencia de enfoque en APEX?", "options": ["Poder leer en pantallas táctiles de forma pasiva.", "Recuperar la capacidad de sostener una atención profunda e ininterrumpida en lecturas extensas, venciendo la fatiga digital.", "Obligarte a parpadear lo menos posible."], "correct": 1}]}
+            },
+            14: {
+                subtitle: "Módulo 4: Peak Integration (Tomo 3 - Mente APEX de Élite)",
+                title: "Semana 14: Asimilación de Alta Complejidad",
+                desc: "Abordando literatura técnica, leyes y artículos científicos.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        En esta etapa, aplicarás todo tu entrenamiento biomecánico y de asimilación a textos de altísima complejidad técnica, patentes, leyes o papers científicos densos.
+                    </p>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border dark:border-slate-700/50">
+                        <h6 class="font-bold text-xs text-slate-700 dark:text-slate-200 uppercase">Soberanía de Información Compleja:</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Aprenderás a descomponer las variables e ideas densas con velocidad, analizando bloques lógicos e implementando tus Eye Trackers para captar la idea matemática o lógica central al instante.
+                        </p>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 14", "questions": [{"q": "¿Cómo cambia tu estrategia al leer literatura de alta complejidad?", "options": ["Evitando realizar la fase de revisión.", "Implementando rigurosamente tus Eye Trackers y desglosando los bloques lógicos de la información con el método TIICR.", "Aumentando la velocidad al azar sin importar la comprensión."], "correct": 1}]}
+            },
+            15: {
+                subtitle: "Módulo 4: Peak Integration (Tomo 3 - Mente APEX de Élite)",
+                title: "Semana 15: Sincronización Real del Léxico",
+                desc: "Integración de vocabulario avanzado de forma instantánea.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Un vocabulario rico y sofisticado es proporcional a la velocidad con la que tu mente asimila la lectura. Cuando el cerebro conoce una palabra al instante, no se detiene a descifrarla, lo que mantiene tu ritmo de enfoque.
+                    </p>
+                    <div class="bg-blue-50/50 dark:bg-slate-900/50 p-4 rounded-xl border border-blue-100 dark:border-slate-700/50">
+                        <h6 class="font-bold text-xs text-apex-blue uppercase">La Sincronización del Léxico:</h6>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Utilizarás tu mazo de <strong>Léxico</strong> personalizado con flashcards 3D para consolidar los términos complejos que has registrado durante tus entrenamientos. Tu reconocimiento será instantáneo y automático.
+                        </p>
+                    </div>
+                `,
+                quiz: {"title": "Test de Validación - Semana 15", "questions": [{"q": "¿Por qué un vocabulario avanzado aumenta de forma natural tu velocidad de lectura?", "options": ["Porque te permite saltarte palabras en el texto sin leerlas.", "Porque tu cerebro reconoce el concepto al instante y de forma automática, manteniendo el ritmo de enfoque continuo.", "Porque mejora tu pronunciación silábica al hablar."], "correct": 1}]}
+            },
+            16: {
+                subtitle: "Módulo 4: Peak Integration (Tomo 3 - Mente APEX de Élite)",
+                title: "Semana 16: Certificación de Soberanía Cognitiva",
+                desc: "La cima del sistema APEX Kinetix.",
+                content: `
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        ¡Felicidades! Has llegado a la última semana del programa de 4 meses de APEX Kinetix. A lo largo de estas 16 semanas, has transformado por completo tus hábitos y la biomecánica de tus ojos.
+                    </p>
+                    <div class="bg-gradient-to-r from-slate-900 to-slate-950 p-6 rounded-2xl border border-slate-800 text-white space-y-3">
+                        <h6 class="font-black text-apex-cyan uppercase tracking-widest text-xs">Examen de Egreso APEX:</h6>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Esta semana realizarás tu prueba de egreso final para medir tu Ritmo de Enfoque e Indice de Retención definitivos. Al aprobar este examen, desbloquearás la insignia máxima de <strong>Mente APEX de Élite</strong>, certificando tu total soberanía mental y atencional sobre la saturación digital.
+                        </p>
+                    </div>
+                `,
+                quiz: {"title": "Test de Egreso - Certificación APEX", "questions": [{"q": "¿Qué certifica la conclusión de las 16 semanas del sistema APEX Kinetix?", "options": ["La capacidad para automatizar el scroll del teléfono móvil de forma pasiva.", "Tu total soberanía atencional y control cognitivo de tu mente mediante la eliminación de malos hábitos y acondicionamiento biomecánico.", "Haber memorizado todas las definiciones del mazo de Léxico."], "correct": 1}]}
+            },
         };
 
-        let currentActiveLesson = 1;
-        let activeQuizModule = null;
+        let currentActiveWeek = 1;
+        let activeQuizWeek = null;
 
-        // Elementos DOM
         const bodyContainer = document.getElementById('body-container');
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
+        const darkToggle = document.getElementById('dark-mode-toggle');
+        const darkIcon = document.getElementById('dark-icon');
+        const htmlElement = document.documentElement;
+
         const viewerSubtitle = document.getElementById('viewer-subtitle');
         const viewerTitle = document.getElementById('viewer-title');
         const viewerBody = document.getElementById('viewer-body');
         const viewerFooter = document.getElementById('viewer-footer');
-        const viewerContainer = document.getElementById('viewer-container');
 
         const quizModal = document.getElementById('quiz-modal');
         const quizTitle = document.getElementById('quiz-title');
@@ -408,71 +638,106 @@
         const rankDisplay = document.getElementById('rank-display');
         const badgesCount = document.getElementById('badges-count');
 
-        // Inicialización y Carga de Estado
         window.addEventListener('DOMContentLoaded', () => {
             loadProgress();
-            loadLesson(1);
+            selectWeek(1);
             applySavedTheme();
         });
 
-        function loadLesson(id) {
-            currentActiveLesson = id;
-
-            // Actualizar clases de tarjetas de navegación
-            for (let i = 1; i <= 3; i++) {
-                const card = document.getElementById(`mod-${i}`);
+        // --- ACORDEÓN DE MÓDULOS ---
+        function toggleAccordion(id) {
+            for (let i = 1; i <= 4; i++) {
+                const el = document.getElementById(`acc-content-${i}`);
+                const icon = document.getElementById(`acc-icon-${i}`);
                 if (i === id) {
-                    card.className = "bg-white dark:bg-slate-800 p-5 rounded-2xl border-2 border-apex-blue dark:border-apex-cyan shadow-md cursor-pointer transition-all-300";
+                    el.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
                 } else {
-                    card.className = "bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm cursor-pointer hover:shadow-md transition-all-300";
+                    el.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                }
+            }
+        }
+
+        // --- CARGAR SEMANA ---
+        function selectWeek(weekNum) {
+            currentActiveWeek = weekNum;
+
+            // Quitar resaltado de todas las semanas
+            for (let i = 1; i <= 16; i++) {
+                const btn = document.getElementById(`btn-week-${i}`);
+                if (btn) {
+                    btn.className = "w-full p-3 rounded-xl text-left text-xs font-semibold flex justify-between items-center hover:bg-white dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-400";
                 }
             }
 
-            const data = lessons[id];
-            viewerSubtitle.textContent = data.subtitle;
+            // Resaltar semana seleccionada
+            const activeBtn = document.getElementById(`btn-week-${weekNum}`);
+            if (activeBtn) {
+                activeBtn.className = "w-full p-3 rounded-xl text-left text-xs font-black flex justify-between items-center bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm border border-slate-100 dark:border-slate-800";
+            }
+
+            const data = lessons[weekNum];
+            viewerSubtitle.textContent = `${data.subtitle} - ${data.desc}`;
             viewerTitle.textContent = data.title;
             viewerBody.innerHTML = data.content;
-            viewerFooter.innerHTML = data.footer;
-        }
 
-        // --- SISTEMA DE LOGROS (LOCAL STORAGE) ---
-        function loadProgress() {
-            const mod1Passed = localStorage.getItem('apex_badge_1') === 'true';
-            const mod2Passed = localStorage.getItem('apex_badge_2') === 'true';
-            const mod3Passed = localStorage.getItem('apex_badge_3') === 'true';
-
-            // Actualizar iconos de status en la lista lateral
-            document.getElementById('badge-status-1').innerHTML = mod1Passed ? "<i class='fas fa-check-circle text-apex-cyan text-base'></i>" : "<i class='far fa-circle text-slate-400'></i>";
-            document.getElementById('badge-status-2').innerHTML = mod2Passed ? "<i class='fas fa-check-circle text-apex-cyan text-base'></i>" : "<i class='far fa-circle text-slate-400'></i>";
-            document.getElementById('badge-status-3').innerHTML = mod3Passed ? "<i class='fas fa-check-circle text-apex-cyan text-base'></i>" : "<i class='far fa-circle text-slate-400'></i>";
-
-            let count = 0;
-            if (mod1Passed) count++;
-            if (mod2Passed) count++;
-            if (mod3Passed) count++;
-
-            badgesCount.textContent = `${count} / 3 Insignias`;
-
-            // Rango Cerebro Dinámico
-            if (count === 1) {
-                rankDisplay.textContent = "Soberano Atencional";
-                rankDisplay.className = "text-sm font-black text-amber-500 mt-1 uppercase";
-            } else if (count === 2) {
-                rankDisplay.textContent = "Sapien Kinetix";
-                rankDisplay.className = "text-sm font-black text-purple-500 mt-1 uppercase";
-            } else if (count === 3) {
-                rankDisplay.textContent = "Mente APEX de Élite";
-                rankDisplay.className = "text-sm font-black text-emerald-500 mt-1 uppercase animate-pulse";
+            // Verificar si el quiz de esta semana ya fue aprobado
+            const isApproved = localStorage.getItem(`apex_week_approved_${weekNum}`) === 'true';
+            if (isApproved) {
+                viewerFooter.innerHTML = `
+                    <span class="text-xs text-emerald-500 font-bold flex items-center gap-1"><i class="fas fa-check-circle"></i> Evaluación de esta semana aprobada</span>
+                    <a href="simulador.html" class="w-full sm:w-auto text-center bg-apex-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 shadow-md transition-all text-xs">Ir al Simulador Óptico <i class="fas fa-arrow-right ml-1"></i></a>
+                `;
             } else {
-                rankDisplay.textContent = "Lector Iniciado";
-                rankDisplay.className = "text-sm font-black text-apex-blue dark:text-apex-cyan mt-1";
+                viewerFooter.innerHTML = `
+                    <span class="text-xs text-slate-400 font-medium">Completa la lectura técnica teórica antes de validar.</span>
+                    <button onclick="openQuiz(${weekNum})" class="w-full sm:w-auto bg-apex-blue text-white font-black px-6 py-3 rounded-xl hover:bg-blue-700 shadow-lg transition-all text-xs flex items-center justify-center gap-2 shadow-apex-blue/20">
+                        Realizar Test Semanal <i class="fas fa-question-circle"></i>
+                    </button>
+                `;
             }
         }
 
-        // --- MANEJO DEL QUIZ ---
-        function openQuiz(moduleId) {
-            activeQuizModule = moduleId;
-            const quizData = lessons[moduleId].quiz;
+        // --- GESTIÓN DE PROGRESO Y RANGO ---
+        function loadProgress() {
+            let approvedCount = 0;
+            for (let i = 1; i <= 16; i++) {
+                const isApproved = localStorage.getItem(`apex_week_approved_${i}`) === 'true';
+                const badgeSpan = document.getElementById(`badge-week-${i}`);
+                if (badgeSpan) {
+                    badgeSpan.innerHTML = isApproved
+                        ? "<i class='fas fa-check-circle text-emerald-500 text-sm'></i>"
+                        : "<i class='far fa-circle text-slate-400'></i>";
+                }
+                if (isApproved) approvedCount++;
+            }
+
+            badgesCount.textContent = `${approvedCount} / 16 Aprobadas`;
+
+            // Rangos dinámicos basados en semanas completadas
+            if (approvedCount >= 16) {
+                rankDisplay.textContent = "Mente APEX de Élite";
+                rankDisplay.className = "text-xs font-black text-emerald-500 mt-1 uppercase animate-pulse";
+            } else if (approvedCount >= 12) {
+                rankDisplay.textContent = "High Performance";
+                rankDisplay.className = "text-xs font-black text-purple-500 mt-1 uppercase";
+            } else if (approvedCount >= 8) {
+                rankDisplay.textContent = "Sapien Kinetix";
+                rankDisplay.className = "text-xs font-black text-indigo-500 mt-1 uppercase";
+            } else if (approvedCount >= 4) {
+                rankDisplay.textContent = "Soberano Atencional";
+                rankDisplay.className = "text-xs font-black text-amber-500 mt-1 uppercase";
+            } else {
+                rankDisplay.textContent = "Lector Iniciado";
+                rankDisplay.className = "text-xs font-black text-apex-blue dark:text-apex-cyan mt-1 uppercase";
+            }
+        }
+
+        // --- MANEJO DE QUIZ ---
+        function openQuiz(weekNum) {
+            activeQuizWeek = weekNum;
+            const quizData = lessons[weekNum].quiz;
             quizTitle.textContent = quizData.title;
 
             quizBody.innerHTML = "";
@@ -480,7 +745,7 @@
                 let optionsHtml = "";
                 q.options.forEach((opt, oIdx) => {
                     optionsHtml += `
-                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer text-xs transition-colors">
+                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-950 cursor-pointer text-xs transition-colors">
                             <input type="radio" name="question-${qIdx}" value="${oIdx}" class="mt-0.5 accent-apex-cyan">
                             <span class="text-slate-600 dark:text-slate-300 font-medium">${opt}</span>
                         </label>
@@ -504,12 +769,12 @@
         function closeQuiz() {
             quizModal.classList.add('hidden');
             quizModal.classList.remove('flex');
-            activeQuizModule = null;
+            activeQuizWeek = null;
         }
 
         btnSubmitQuiz.addEventListener('click', () => {
-            if (!activeQuizModule) return;
-            const quizData = lessons[activeQuizModule].quiz;
+            if (!activeQuizWeek) return;
+            const quizData = lessons[activeQuizWeek].quiz;
             let allCorrect = true;
 
             for (let i = 0; i < quizData.questions.length; i++) {
@@ -524,50 +789,50 @@
             }
 
             if (allCorrect) {
-                localStorage.setItem(`apex_badge_${activeQuizModule}`, 'true');
+                localStorage.setItem(`apex_week_approved_${activeQuizWeek}`, 'true');
 
-                // Actualizar Focus Streak y progreso
+                // Sumar al streak
                 let streak = parseInt(localStorage.getItem('apex_focus_streak') || 0);
-                localStorage.setItem('apex_focus_streak', parseInt(streak) + 1);
+                if (streak === 0) streak = 1;
+                localStorage.setItem('apex_focus_streak', streak + 1);
 
-                let lessonsCompleted = parseInt(localStorage.getItem('apex_lessons_completed') || 0);
-                localStorage.setItem('apex_lessons_completed', lessonsCompleted + 1);
-
-                alert("🎉 ¡Test aprobado a la perfección! Has liberado una nueva Insignia de Control y consolidado tu Focus Streak.");
+                alert("🎉 ¡Test de validación aprobado! Has ganado tu acreditación de rendimiento semanal.");
                 closeQuiz();
                 loadProgress();
+                selectWeek(activeQuizWeek);
             } else {
-                alert("❌ Algunas respuestas son incorrectas. Relee con atención el material del módulo y vuelve a intentarlo. ¡Tú puedes!");
+                alert("❌ Algunas respuestas son incorrectas. Relee detenidamente la base teórica de la semana e inténtalo de nuevo.");
             }
         });
 
-        // --- MODO OSCURO SINCRONIZADO ---
-        const htmlElement = document.documentElement;
-
+        // --- GESTIÓN DE MODO OSCURO ---
         function aplicarModoOscuro(isDark) {
             if (isDark) {
                 htmlElement.classList.add('dark');
-                themeIcon.className = "fas fa-sun text-xl text-yellow-400";
+                darkIcon.className = "fas fa-sun text-lg text-yellow-400";
                 localStorage.setItem('apex_dark_mode', 'enabled');
             } else {
                 htmlElement.classList.remove('dark');
-                themeIcon.className = "fas fa-moon text-xl text-gray-400";
+                darkIcon.className = "fas fa-moon text-lg text-slate-500";
                 localStorage.setItem('apex_dark_mode', 'disabled');
             }
         }
 
-        themeToggle.addEventListener('click', () => {
+        const currentSetting = localStorage.getItem('apex_dark_mode');
+        if (currentSetting === 'enabled') {
+            aplicarModoOscuro(true);
+        } else {
+            aplicarModoOscuro(false);
+        }
+
+        darkToggle.addEventListener('click', () => {
             const isDark = htmlElement.classList.contains('dark');
             aplicarModoOscuro(!isDark);
         });
 
         function applySavedTheme() {
-            const savedSetting = localStorage.getItem('apex_dark_mode');
-            if (savedSetting === 'enabled') {
-                aplicarModoOscuro(true);
-            } else {
-                aplicarModoOscuro(false);
-            }
+            const savedTheme = localStorage.getItem('apex_dark_mode') || 'disabled';
+            aplicarModoOscuro(savedTheme === 'enabled');
         }
     </script>
 </body>
