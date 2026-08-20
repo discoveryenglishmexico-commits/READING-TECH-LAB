@@ -1,470 +1,619 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX Kinetix - Simulador Óptico</title>
-    <!-- Tailwind CSS para diseño fluido -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome para iconografía -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        apex: {
-                            blue: '#00529B',
-                            cyan: '#00A4E4',
-                            dark: '#0F172A',
-                            slate: '#1E293B',
-                            lightBg: '#F8FAFC'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .theme-transition {
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-        }
-        .rsvp-word {
-            font-family: 'Courier New', Courier, monospace;
-        }
-        .focus-letter {
-            color: #00A4E4;
-            font-weight: 900;
-        }
-    </style>
-</head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans theme-transition min-h-screen flex flex-col md:flex-row pb-20 md:pb-0" id="body-container">
-
-        <!-- BARRA LATERAL (Escritorio - Desktop) -->
-    <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0 z-20">
-        <div class="p-6 text-center border-b border-slate-800">
-            <h1 class="text-3xl font-black text-apex-cyan tracking-wider">APEX</h1>
-            <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">Kinetix System</p>
-        </div>
-        <nav class="flex-1 px-4 py-6 space-y-2">
-            <a href="index.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-chart-line w-5 text-gray-400"></i> Métricas APEX
-            </a>
-            <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 bg-apex-blue rounded-xl text-white font-semibold shadow-lg shadow-apex-blue/20 transition-all">
-                <i class="fas fa-eye w-5 text-apex-cyan"></i> Simulador Óptico
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-50 cursor-not-allowed">
-                <i class="fas fa-dumbbell w-5"></i> Eye Tracker <span class="text-[8px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded-full ml-auto font-bold uppercase">Pronto</span>
-            </a>
-            <a href="hub.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-cubes w-5 text-gray-400"></i> APEX Hub
-            </a>
-            <a href="lexico.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
-                <i class="fas fa-spell-check w-5 text-gray-400"></i> Léxico
-            </a>
-        </nav>
-        <div class="p-4 border-t border-slate-800">
-            <p class="text-xs text-slate-500 text-center py-2">No es velocidad. Es soberanía.</p>
-        </div>
-    </aside>
-
-    <!-- CONTENIDO PRINCIPAL -->
-    <div class="flex-1 flex flex-col min-h-screen">
-        <!-- Encabezado superior -->
-        <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 h-16 flex items-center justify-between px-6 md:px-8 shrink-0 theme-transition">
-            <div class="flex items-center gap-4">
-                <a href="index.html" class="md:hidden text-slate-600 dark:text-slate-400 hover:text-apex-blue"><i class="fas fa-arrow-left text-xl"></i></a>
-                <h2 class="text-lg font-bold text-slate-800 dark:text-white">Simulador Óptico APEX</h2>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <!-- Botón de Modo Oscuro Real -->
-                <button id="dark-mode-toggle" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl flex items-center justify-center text-slate-500 dark:text-yellow-400 transition-colors">
-                    <i class="fas fa-moon text-lg" id="dark-icon"></i>
-                </button>
-
-                <!-- Perfil -->
-                <div class="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-4">
-                    <div class="text-right hidden sm:block">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Membresía Activa</p>
-                        <p class="text-sm font-black text-apex-blue dark:text-apex-cyan">Sapien Focus Premium</p>
-                    </div>
-                    <div class="w-10 h-10 bg-gradient-to-tr from-apex-blue to-apex-cyan rounded-xl flex items-center justify-center text-white font-extrabold shadow-md shadow-apex-cyan/20">
-                        SF
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Zona de Trabajo del Simulador -->
-        <main class="p-4 md:p-8 max-w-5xl w-full mx-auto space-y-6">
-
-            <!-- Selector de Modos de Entrenamiento -->
-            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-wrap gap-4 items-center justify-between theme-transition">
-                <div>
-                    <h3 class="font-bold text-slate-800 dark:text-white text-base">Modo de Entrenamiento</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Selecciona la dinámica biomecánica para ejercitar hoy</p>
-                </div>
-                <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl transition-colors">
-                    <button id="btn-mode-rsvp" class="px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm">
-                        <i class="fas fa-bolt mr-1"></i> Lector RSVP (Foco)
-                    </button>
-                    <button id="btn-mode-column" class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue">
-                        <i class="fas fa-columns mr-1"></i> Gimnasia Columnas
-                    </button>
-                </div>
-            </div>
-
-            <!-- Caja Principal de la Pantalla del Simulador -->
-            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl p-6 md:p-10 flex flex-col items-center justify-center min-h-[350px] relative overflow-hidden theme-transition" id="reading-card">
-
-                <!-- PANTALLA RSVP -->
-                <div id="rsvp-screen" class="flex flex-col items-center justify-center w-full">
-                    <div class="w-1.5 h-8 bg-apex-cyan opacity-40 mb-4 rounded-full"></div>
-                    <div class="text-4xl sm:text-5xl md:text-6xl font-black tracking-wide rsvp-word py-6 select-none text-center" id="rsvp-word-container">
-                        <span class="text-slate-400 dark:text-slate-600">APEX</span><span class="focus-letter">O</span><span class="text-slate-400 dark:text-slate-600">ptix</span>
-                    </div>
-                    <div class="w-1.5 h-8 bg-apex-cyan opacity-40 mt-4 rounded-full"></div>
-                </div>
-
-                <!-- PANTALLA DE GIMNASIA COLUMNAS (CORREGIDO BUG DE PALABRAS ENCONADAS) -->
-                <div id="column-screen" class="hidden w-full max-w-xl mx-auto flex flex-col items-center justify-center py-4">
-                    <p class="text-[10px] text-slate-400 dark:text-slate-500 mb-6 text-center font-extrabold uppercase tracking-widest leading-relaxed">
-                        Entrenamiento Biomecánico: Fija la vista estrictamente en la línea central. Lee los extremos usando visión periférica.
-                    </p>
-
-                    <!-- Contenedor centralizado con grid defensivo para celulares -->
-                    <div class="grid grid-cols-2 gap-x-2 sm:gap-x-6 md:gap-x-12 gap-y-4 text-lg sm:text-xl md:text-3xl font-extrabold border-l-2 border-r-2 border-dashed border-apex-cyan/30 px-4 md:px-8 py-6 w-full text-center relative" id="column-words-grid">
-                        <!-- Línea de enfoque central artificial -->
-                        <div class="absolute inset-y-0 left-1/2 -ml-[1px] border-l border-emerald-500/40 pointer-events-none"></div>
-
-                        <div class="text-right text-slate-500 dark:text-slate-400 pr-2 md:pr-4 truncate" id="col-left">Enfoque</div>
-                        <div class="text-left text-slate-500 dark:text-slate-400 pl-2 md:pl-4 truncate" id="col-right">Activo</div>
-                    </div>
-                </div>
-
-                <!-- Barra de Progreso de Lectura -->
-                <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-8 overflow-hidden theme-transition">
-                    <div id="reading-progress" class="bg-apex-cyan h-full w-0 transition-all duration-150"></div>
-                </div>
-            </div>
-
-            <!-- Controles y Configuración de Velocidad -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                <!-- Panel de Control Principal -->
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
-                    <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Controles de Ejecución</h4>
-                    <div class="flex items-center justify-around">
-                        <button id="btn-rewind" class="w-12 h-12 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl transition-colors flex items-center justify-center text-lg">
-                            <i class="fas fa-backward"></i>
-                        </button>
-                        <button id="btn-play" class="w-16 h-16 bg-apex-blue text-white rounded-2xl hover:bg-blue-700 shadow-md transition-all flex items-center justify-center text-2xl shadow-apex-blue/20">
-                            <i class="fas fa-play" id="play-icon"></i>
-                        </button>
-                        <button id="btn-reset" class="w-12 h-12 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl transition-colors flex items-center justify-center text-lg">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Control de Ritmo de Enfoque (PPM) -->
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Ritmo de Enfoque</h4>
-                        <span class="bg-blue-50 dark:bg-blue-950/50 text-apex-blue dark:text-apex-cyan font-black px-3 py-1 rounded-lg text-xs" id="ppm-display">300 PPM</span>
-                    </div>
-                    <input type="range" id="ppm-slider" min="100" max="1000" step="50" value="300" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-apex-cyan">
-                    <div class="flex justify-between text-[9px] text-slate-400 font-bold uppercase">
-                        <span>Básico (100)</span>
-                        <span>APEX (600)</span>
-                        <span>Hiperenfoque (1000)</span>
-                    </div>
-                </div>
-
-                <!-- Tamaño de Letra y Zoom -->
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
-                    <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Ajuste del Campo Visual</h4>
-                    <div class="flex items-center gap-4 justify-center">
-                        <button id="btn-zoom-out" class="w-12 h-12 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-center font-extrabold">-A</button>
-                        <button id="btn-zoom-in" class="w-12 h-12 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-center font-extrabold">+A</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Campo de Captura de Texto -->
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 space-y-4 theme-transition">
-                <div class="flex justify-between items-center">
-                    <h4 class="font-bold text-slate-700 dark:text-slate-300 text-sm">Inserta el material de estudio para cargar</h4>
-                    <span class="text-[10px] text-slate-400 font-bold uppercase" id="word-count">24 palabras cargadas</span>
-                </div>
-                <textarea id="input-text" rows="4" class="w-full p-4 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl focus:ring-2 focus:ring-apex-cyan focus:outline-none text-slate-700 dark:text-slate-300 text-sm" placeholder="Inserta aquí tu material de estudio..."></textarea>
-                <div class="flex justify-end">
-                    <button id="btn-load-text" class="bg-apex-cyan text-slate-900 font-black px-6 py-3 rounded-xl shadow-lg shadow-apex-cyan/10 hover:bg-cyan-400 transition-all text-xs flex items-center gap-2">
-                        <i class="fas fa-file-import"></i> Cargar al Simulador
-                    </button>
-                </div>
-            </div>
-
-        </main>
+<!-- BARRA LATERAL (Desktop) -->
+<aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex border-r border-slate-800 shrink-0">
+    <div class="p-6 text-center border-b border-slate-800">
+        <h1 class="text-3xl font-black text-apex-cyan tracking-wider">APEX</h1>
+        <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">Kinetix System</p>
     </div>
-
-        <!-- MENÚ DE NAVEGACIÓN INFERIOR (Solo visible en móviles) -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 h-16 flex md:hidden items-center justify-around px-4 z-50 theme-transition shadow-2xl">
-        <a href="index.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-            <i class="fas fa-chart-line text-lg"></i>
-            <span class="text-[9px] font-medium">Métricas</span>
+    <nav class="flex-1 px-4 py-6 space-y-2">
+        <a href="index.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
+            <i class="fas fa-chart-line w-5"></i> Métricas APEX
         </a>
-        <a href="simulador.html" class="flex flex-col items-center gap-1 text-apex-blue dark:text-apex-cyan">
-            <i class="fas fa-eye text-lg"></i>
-            <span class="text-[9px] font-bold">Simulador</span>
+        <a href="simulador.html" class="flex items-center gap-3 px-4 py-3 bg-apex-blue rounded-xl text-white font-semibold shadow-lg shadow-apex-blue/20 transition-all">
+            <i class="fas fa-eye w-5 text-apex-cyan"></i> Simulador Óptico
         </a>
-        <a href="hub.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-            <i class="fas fa-cubes text-lg"></i>
-            <span class="text-[9px] font-medium">Hub</span>
+        <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all opacity-60 cursor-not-allowed">
+            <i class="fas fa-dumbbell w-5"></i> Eye Tracker <span class="text-[8px] bg-apex-cyan text-white px-1.5 py-0.5 rounded-full ml-auto font-bold">Pronto</span>
         </a>
-        <a href="lexico.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-            <i class="fas fa-spell-check text-lg"></i>
-            <span class="text-[9px] font-medium">Léxico</span>
+        <a href="hub.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
+            <i class="fas fa-book-open w-5"></i> APEX Hub
+        </a>
+        <a href="lexico.html" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white font-medium transition-all">
+            <i class="fas fa-spell-check w-5"></i> Léxico
         </a>
     </nav>
+    <div class="p-4 border-t border-slate-800">
+        <p class="text-xs text-slate-500 text-center py-2">No es velocidad. Es soberanía.</p>
+    </div>
+</aside>
 
-    <!-- Script de Interactividad y Gimnasia Biomecánica -->
-    <script>
-        const defaultText = "La mente humana no tiene límites cuando se le entrena de forma correcta. APEX Kinetix elimina la subvocalización y expande tu visión periférica logrando una soberanía cognitiva de alto rendimiento para asimilar conocimiento profundo sin depender de resúmenes artificiales.";
+<!-- CONTENIDO PRINCIPAL -->
+<div class="flex-1 flex flex-col min-h-screen">
+    <!-- Encabezado superior -->
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 h-16 flex items-center justify-between px-6 md:px-8 shrink-0 theme-transition">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="md:hidden text-slate-600 dark:text-slate-400 hover:text-apex-blue"><i class="fas fa-arrow-left text-xl"></i></a>
+            <h2 class="text-lg font-bold text-slate-800 dark:text-white">Gimnasia Ocular APEX</h2>
+        </div>
 
-        let words = defaultText.split(/\s+/);
-        let currentIndex = 0;
-        let isPlaying = false;
-        let timer = null;
-        let currentMode = 'rsvp';
-        let currentFontSize = 3;
+        <div class="flex items-center gap-4">
+            <!-- Botón de Modo Oscuro -->
+            <button id="dark-mode-toggle" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl flex items-center justify-center text-slate-500 dark:text-yellow-400 transition-colors">
+                <i class="fas fa-moon text-lg" id="dark-icon"></i>
+            </button>
 
-        // Elementos DOM
-        const btnPlay = document.getElementById('btn-play');
-        const playIcon = document.getElementById('play-icon');
-        const btnRewind = document.getElementById('btn-rewind');
-        const btnReset = document.getElementById('btn-reset');
-        const ppmSlider = document.getElementById('ppm-slider');
-        const ppmDisplay = document.getElementById('ppm-display');
-        const rsvpWordContainer = document.getElementById('rsvp-word-container');
-        const inputText = document.getElementById('input-text');
-        const btnLoadText = document.getElementById('btn-load-text');
-        const wordCountDisplay = document.getElementById('word-count');
-        const readingProgress = document.getElementById('reading-progress');
+            <!-- Perfil -->
+            <div class="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Membresía Activa</p>
+                    <p class="text-sm font-black text-apex-blue dark:text-apex-cyan">Sapien Focus Premium</p>
+                </div>
+                <div class="w-10 h-10 bg-gradient-to-tr from-apex-blue to-apex-cyan rounded-xl flex items-center justify-center text-white font-extrabold shadow-md shadow-apex-cyan/20">
+                    SF
+                </div>
+            </div>
+        </div>
+    </header>
 
-        const btnModeRsvp = document.getElementById('btn-mode-rsvp');
-        const btnModeColumn = document.getElementById('btn-mode-column');
-        const rsvpScreen = document.getElementById('rsvp-screen');
-        const columnScreen = document.getElementById('column-screen');
-        const colLeft = document.getElementById('col-left');
-        const colRight = document.getElementById('col-right');
+    <!-- Zona de Trabajo del Simulador -->
+    <main class="p-4 md:p-8 max-w-5xl w-full mx-auto space-y-6">
 
-        const btnZoomIn = document.getElementById('btn-zoom-in');
-        const btnZoomOut = document.getElementById('btn-zoom-out');
-        const darkToggle = document.getElementById('dark-mode-toggle');
-        const darkIcon = document.getElementById('dark-icon');
-        const htmlElement = document.documentElement;
+        <!-- Selector de Modos de Entrenamiento / Configuración de la Rutina -->
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row gap-4 items-center justify-between theme-transition">
+            <div class="text-center lg:text-left">
+                <h3 class="font-black text-slate-800 dark:text-white text-base">Entrenadores Oculares (Eye Trackers)</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Selecciona el módulo biomecánico o activa la rutina científica de 10 minutos</p>
+            </div>
 
-        inputText.value = defaultText;
-        updateWordCount();
+            <div class="flex flex-wrap gap-2 justify-center">
+                <!-- Rutina de 10 minutos integrada -->
+                <button id="btn-start-routine" class="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black px-4 py-2.5 rounded-xl shadow-lg shadow-orange-500/20 hover:scale-[1.02] transition-all text-xs flex items-center gap-1.5">
+                    <i class="fas fa-stopwatch animate-pulse"></i> Rutina 10 Minutos
+                </button>
 
-        // --- SISTEMA DE RENDERIZACIÓN ---
-        function renderWord() {
-            if (currentIndex >= words.length) {
-                pauseReading();
-                currentIndex = words.length - 1;
-                completarEntrenamiento();
-                return;
-            }
+                <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl transition-colors">
+                    <button id="btn-mode-1" class="px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm">
+                        <i class="fas fa-arrows-alt-v mr-1"></i> Eye Tracker 1
+                    </button>
+                    <button id="btn-mode-2" class="px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue">
+                        <i class="fas fa-columns mr-1"></i> Eye Tracker 2
+                    </button>
+                    <button id="btn-mode-3" class="px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue">
+                        <i class="fas fa-eye mr-1"></i> Eye Tracker 3
+                    </button>
+                </div>
+            </div>
+        </div>
 
+        <!-- Caja Principal de la Pantalla del Simulador -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl p-6 md:p-10 flex flex-col items-center justify-center min-h-[380px] relative overflow-hidden theme-transition" id="reading-card">
+
+            <!-- Indicador de Etapa de Rutina Activa (Oculto por defecto) -->
+            <div id="routine-banner" class="absolute top-4 left-4 right-4 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-orange-500/20 text-orange-500 dark:text-orange-400 py-2 px-4 rounded-xl flex justify-between items-center text-xs font-black uppercase tracking-wider hidden">
+                <span><i class="fas fa-sync animate-spin mr-1"></i> Rutina Diaria: <span id="routine-stage-name">Etapa 1</span></span>
+                <span id="routine-countdown">03:00</span>
+            </div>
+
+            <!-- PANTALLA EYE TRACKER 1: FLUJO VERTICAL RÁPIDO -->
+            <div id="et1-screen" class="flex flex-col items-center justify-center w-full">
+                <p class="text-[10px] text-slate-400 dark:text-slate-500 mb-6 text-center font-extrabold uppercase tracking-widest leading-relaxed">
+                    Eye Tracker 1: Acondicionamiento Ojo-Cerebro. Desplaza la vista verticalmente hacia abajo. Erradica la regresión.
+                </p>
+                <div class="flex items-center gap-10">
+                    <!-- Línea de guía vertical interactiva -->
+                    <div class="w-1.5 h-36 bg-gradient-to-b from-apex-cyan via-emerald-500 to-apex-blue opacity-40 rounded-full pulse-guide relative">
+                        <!-- Indicador de foco dinámico -->
+                        <div id="et1-focus-dot" class="absolute left-1/2 -ml-2 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-lg transition-all duration-150" style="top: 10px;"></div>
+                    </div>
+
+                    <div class="text-3xl sm:text-4xl md:text-5xl font-black rsvp-word select-none transition-all py-10" id="et1-word-container">
+                        <span class="text-slate-400 dark:text-slate-600">APEX</span><span class="focus-letter">K</span><span class="text-slate-400 dark:text-slate-600">inetix</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANTALLA EYE TRACKER 2: VISIÓN PERIFÉRICA (GIMNASIA COLUMNAS) -->
+            <div id="et2-screen" class="hidden w-full max-w-2xl mx-auto flex flex-col items-center justify-center py-4">
+                <p class="text-[10px] text-slate-400 dark:text-slate-500 mb-6 text-center font-extrabold uppercase tracking-widest leading-relaxed">
+                    Eye Tracker 2: Estiramiento Muscular. Fija la mirada estrictamente en la línea central. Lee los extremos usando visión periférica.
+                </p>
+
+                <!-- Contenedor con separación lateral regulable por CSS variable -->
+                <div class="flex items-center justify-center w-full relative py-8" style="min-height: 120px;">
+                    <!-- Línea de enfoque central de fijación -->
+                    <div class="absolute inset-y-0 left-1/2 -ml-[1.5px] bg-emerald-500 w-[3px] rounded-full shadow-lg shadow-emerald-500/50">
+                        <!-- Foco central para el ojo -->
+                        <div class="absolute top-1/2 -mt-2 -left-1.5 w-4 h-4 bg-emerald-400 rounded-full border border-white pulse-guide"></div>
+                    </div>
+
+                    <div class="flex justify-between items-center w-full px-4 md:px-8" id="et2-columns-container" style="gap: 120px;">
+                        <div class="w-1/2 text-right text-slate-500 dark:text-slate-400 font-extrabold text-lg sm:text-xl md:text-3xl pr-4 truncate transition-all" id="et2-left">Izquierda</div>
+                        <div class="w-1/2 text-left text-slate-500 dark:text-slate-400 font-extrabold text-lg sm:text-xl md:text-3xl pl-4 truncate transition-all" id="et2-right">Derecha</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANTALLA EYE TRACKER 3: CENTRO DEL RENGLÓN (ASIMILACIÓN DE BLOQUES) -->
+            <div id="et3-screen" class="hidden w-full max-w-xl mx-auto flex flex-col items-center justify-center py-4">
+                <p class="text-[10px] text-slate-400 dark:text-slate-500 mb-6 text-center font-extrabold uppercase tracking-widest leading-relaxed">
+                    Eye Tracker 3: Reducción de Fijaciones. Enfoca el bloque central iluminado y absorbe los márgenes atenuados de un golpe de vista.
+                </p>
+
+                <div class="flex flex-col items-center justify-center w-full py-8 text-center relative select-none">
+                    <!-- Marcador guía central superior e inferior -->
+                    <div class="w-2 h-2 bg-apex-cyan rounded-full mb-4 animate-bounce"></div>
+
+                    <div class="text-base sm:text-lg md:text-xl font-bold leading-relaxed px-4 transition-all" id="et3-phrase-container">
+                        <span class="opacity-20 transition-opacity">La mente humana</span>
+                        <span class="text-apex-blue dark:text-apex-cyan font-black text-lg sm:text-xl md:text-2xl border-b-2 border-apex-cyan/30 px-2 transition-all">no tiene límites</span>
+                        <span class="opacity-20 transition-opacity">cuando se entrena</span>
+                    </div>
+
+                    <div class="w-2 h-2 bg-apex-cyan rounded-full mt-4"></div>
+                </div>
+            </div>
+
+            <!-- Barra de Progreso de Lectura -->
+            <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-8 overflow-hidden theme-transition">
+                <div id="reading-progress" class="bg-apex-cyan h-full w-0 transition-all duration-150"></div>
+            </div>
+        </div>
+
+        <!-- Controles y Configuración de Velocidad -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Panel de Control Principal -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
+                <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Controles de Ejecución</h4>
+                <div class="flex items-center justify-around">
+                    <button id="btn-rewind" class="w-12 h-12 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl transition-colors flex items-center justify-center text-lg">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button id="btn-play" class="w-16 h-16 bg-apex-blue text-white rounded-2xl hover:bg-blue-700 shadow-md transition-all flex items-center justify-center text-2xl shadow-apex-blue/20">
+                        <i class="fas fa-play" id="play-icon"></i>
+                    </button>
+                    <button id="btn-reset" class="w-12 h-12 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl transition-colors flex items-center justify-center text-lg">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Control de Velocidad o Separador Periférico (Dinámico) -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]" id="slider-title">Ritmo de Enfoque</h4>
+                    <span class="bg-blue-50 dark:bg-blue-950/50 text-apex-blue dark:text-apex-cyan font-black px-3 py-1 rounded-lg text-xs" id="slider-display">300 PPM</span>
+                </div>
+                <input type="range" id="main-slider" min="100" max="1000" step="50" value="300" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-apex-cyan">
+                <div class="flex justify-between text-[9px] text-slate-400 font-bold uppercase" id="slider-labels">
+                    <span>Básico (100)</span>
+                    <span>APEX (600)</span>
+                    <span>Frenético (1000)</span>
+                </div>
+            </div>
+
+            <!-- Ajuste de Separación Periférica (Específico de Eye Tracker 2) -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 theme-transition">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Separación Periférica</h4>
+                    <span class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 font-black px-3 py-1 rounded-lg text-xs" id="separation-display">120px</span>
+                </div>
+                <input type="range" id="separation-slider" min="40" max="240" step="10" value="120" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+                <div class="flex justify-between text-[9px] text-slate-400 font-bold uppercase">
+                    <span>Estrecho (40)</span>
+                    <span>Medio (120)</span>
+                    <span>Ángulo Élite (240)</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Campo de Carga de Texto -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 space-y-4 theme-transition">
+            <div class="flex justify-between items-center">
+                <h4 class="font-bold text-slate-700 dark:text-slate-300 text-sm">Inserta el material de estudio para cargar</h4>
+                <span class="text-[10px] text-slate-400 font-bold uppercase" id="word-count">24 palabras cargadas</span>
+            </div>
+            <textarea id="input-text" rows="4" class="w-full p-4 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl focus:ring-2 focus:ring-apex-cyan focus:outline-none text-slate-700 dark:text-slate-300 text-sm" placeholder="Inserta aquí tu material de estudio..."></textarea>
+            <div class="flex justify-end">
+                <button id="btn-load-text" class="bg-apex-cyan text-slate-900 font-black px-6 py-3 rounded-xl shadow-lg shadow-apex-cyan/10 hover:bg-cyan-400 transition-all text-xs flex items-center gap-2">
+                    <i class="fas fa-file-import"></i> Cargar al Simulador
+                </button>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- MENÚ DE NAVEGACIÓN INFERIOR (Móvil) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 h-16 flex md:hidden items-center justify-around px-4 z-50 theme-transition shadow-2xl">
+    <a href="index.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+        <i class="fas fa-chart-line text-lg"></i>
+        <span class="text-[9px] font-medium">Métricas</span>
+    </a>
+    <a href="simulador.html" class="flex flex-col items-center gap-1 text-apex-blue dark:text-apex-cyan">
+        <i class="fas fa-eye text-lg"></i>
+        <span class="text-[9px] font-bold">Simulador</span>
+    </a>
+    <a href="hub.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+        <i class="fas fa-book-open text-lg"></i>
+        <span class="text-[9px] font-medium">Hub</span>
+    </a>
+    <a href="lexico.html" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+        <i class="fas fa-spell-check text-lg"></i>
+        <span class="text-[9px] font-medium">Léxico</span>
+    </a>
+</nav>
+
+<!-- Script de Programación de los 3 Eye Trackers e Inteligencia de Audio -->
+<script>
+    const defaultText = "La mente humana no tiene límites cuando se le entrena de forma correcta. APEX Kinetix elimina la subvocalización y expande tu visión periférica logrando una soberanía cognitiva de alto rendimiento para asimilar conocimiento profundo sin depender de resúmenes artificiales o scrolls efímeros que fracturan tu atención.";
+
+    let words = defaultText.split(/\s+/);
+    let currentIndex = 0;
+    let isPlaying = false;
+    let timer = null;
+    let currentMode = 1; // 1: ET1, 2: ET2, 3: ET3
+    let currentFontSize = 3;
+
+    // --- Variables de Control de la Rutina de 10 Minutos ---
+    let isRoutineActive = false;
+    let routineTimer = null;
+    let secondsRemaining = 180; // 3 minutos por etapa
+    let routineStage = 1; // 1, 2 o 3
+
+    // Elementos DOM
+    const btnPlay = document.getElementById('btn-play');
+    const playIcon = document.getElementById('play-icon');
+    const btnRewind = document.getElementById('btn-rewind');
+    const btnReset = document.getElementById('btn-reset');
+
+    const mainSlider = document.getElementById('main-slider');
+    const sliderDisplay = document.getElementById('slider-display');
+    const separationSlider = document.getElementById('separation-slider');
+    const separationDisplay = document.getElementById('separation-display');
+
+    const wordCountDisplay = document.getElementById('word-count');
+    const inputText = document.getElementById('input-text');
+    const btnLoadText = document.getElementById('btn-load-text');
+    const readingProgress = document.getElementById('reading-progress');
+
+    const btnMode1 = document.getElementById('btn-mode-1');
+    const btnMode2 = document.getElementById('btn-mode-2');
+    const btnMode3 = document.getElementById('btn-mode-3');
+    const btnStartRoutine = document.getElementById('btn-start-routine');
+
+    const et1Screen = document.getElementById('et1-screen');
+    const et2Screen = document.getElementById('et2-screen');
+    const et3Screen = document.getElementById('et3-screen');
+    const routineBanner = document.getElementById('routine-banner');
+    const routineStageName = document.getElementById('routine-stage-name');
+    const routineCountdown = document.getElementById('routine-countdown');
+
+    const et1WordContainer = document.getElementById('et1-word-container');
+    const et1FocusDot = document.getElementById('et1-focus-dot');
+    const et2Left = document.getElementById('et2-left');
+    const et2Right = document.getElementById('et2-right');
+    const et2ColumnsContainer = document.getElementById('et2-columns-container');
+    const et3PhraseContainer = document.getElementById('et3-phrase-container');
+
+    const darkToggle = document.getElementById('dark-mode-toggle');
+    const darkIcon = document.getElementById('dark-icon');
+    const htmlElement = document.documentElement;
+
+    inputText.value = defaultText;
+    updateWordCount();
+
+    // --- SINTETIZADOR DE AUDIO HOLOGRÁFICO (WEB AUDIO API) ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playTone(frequency, duration) {
+        try {
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.type = 'sine';
+            oscillator.frequency.value = frequency;
+
+            gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+            console.log("Audio not allowed yet.");
+        }
+    }
+
+    // --- SISTEMA DE RENDERIZACIÓN DE LOS 3 EYE TRACKERS ---
+    function render() {
+        if (currentIndex >= words.length) {
+            pauseReading();
+            currentIndex = words.length - 1;
+            completarEntrenamiento();
+            return;
+        }
+
+        const percent = ((currentIndex + 1) / words.length) * 100;
+        readingProgress.style.width = `${percent}%`;
+
+        if (currentMode === 1) {
             const word = words[currentIndex];
+            const focusIndex = Math.floor(word.length / 3);
+            const part1 = word.substring(0, focusIndex);
+            const focusChar = word.charAt(focusIndex);
+            const part2 = word.substring(focusIndex + 1);
 
-            if (currentMode === 'rsvp') {
-                const focusIndex = Math.floor(word.length / 3);
-                const part1 = word.substring(0, focusIndex);
-                const focusChar = word.charAt(focusIndex);
-                const part2 = word.substring(focusIndex + 1);
+            et1WordContainer.innerHTML = `<span class="text-slate-800 dark:text-slate-200 font-extrabold">${part1}</span><span class="focus-letter">${focusChar}</span><span class="text-slate-800 dark:text-slate-200 font-extrabold">${part2}</span>`;
 
-                rsvpWordContainer.innerHTML = `<span class="text-slate-700 dark:text-slate-300">${part1}</span><span class="focus-letter">${focusChar}</span><span class="text-slate-700 dark:text-slate-300">${part2}</span>`;
-            } else if (currentMode === 'column') {
-                const leftWord = words[currentIndex] || "";
-                const rightWord = words[currentIndex + 1] || "";
+            const yPos = 10 + (currentIndex % 5) * 25;
+            et1FocusDot.style.top = `${yPos}px`;
 
-                colLeft.textContent = leftWord;
-                colRight.textContent = rightWord;
-            }
+        } else if (currentMode === 2) {
+            const leftWord = words[currentIndex] || "";
+            const rightWord = words[currentIndex + 1] || "";
 
-            const percent = ((currentIndex + 1) / words.length) * 100;
-            readingProgress.style.width = `${percent}%`;
+            et2Left.textContent = leftWord;
+            et2Right.textContent = rightWord;
+
+        } else if (currentMode === 3) {
+            const partLeft = words[currentIndex - 1] || words[words.length - 1];
+            const partCenter = words[currentIndex] || "";
+            const partRight = words[currentIndex + 1] || words[0];
+
+            et3PhraseContainer.innerHTML = `
+                <span class="opacity-15 font-medium transition-all text-sm sm:text-base">${partLeft}</span>
+                <span class="text-apex-blue dark:text-apex-cyan font-black text-xl sm:text-2xl md:text-3xl border-b-2 border-apex-cyan/30 px-3 tracking-wide transition-all">${partCenter}</span>
+                <span class="opacity-15 font-medium transition-all text-sm sm:text-base">${partRight}</span>
+            `;
         }
+    }
 
-        function playReading() {
-            if (words.length === 0) return;
-            isPlaying = true;
-            playIcon.className = "fas fa-pause";
-            btnPlay.className = "w-16 h-16 bg-red-500 text-white rounded-2xl hover:bg-red-600 shadow-md transition-all flex items-center justify-center text-2xl";
+    function playReading() {
+        if (words.length === 0) return;
+        isPlaying = true;
+        playIcon.className = "fas fa-pause";
+        btnPlay.className = "w-16 h-16 bg-red-500 text-white rounded-2xl hover:bg-red-600 shadow-md transition-all flex items-center justify-center text-2xl";
 
-            const ppm = parseInt(ppmSlider.value);
-            const steps = currentMode === 'column' ? 2 : 1;
-            const interval = (60 * 1000 * steps) / ppm;
+        const ppm = parseInt(mainSlider.value);
+        const steps = currentMode === 2 ? 2 : 1;
+        const interval = (60 * 1000 * steps) / ppm;
 
-            timer = setInterval(() => {
-                currentIndex += steps;
-                renderWord();
-            }, interval);
-        }
+        timer = setInterval(() => {
+            currentIndex += steps;
+            render();
+        }, interval);
+    }
 
-        function pauseReading() {
-            isPlaying = false;
-            playIcon.className = "fas fa-play";
-            btnPlay.className = "w-16 h-16 bg-apex-blue text-white rounded-2xl hover:bg-blue-700 shadow-md transition-all flex items-center justify-center text-2xl shadow-apex-blue/20";
-            clearInterval(timer);
-        }
+    function pauseReading() {
+        isPlaying = false;
+        playIcon.className = "fas fa-play";
+        btnPlay.className = "w-16 h-16 bg-apex-blue text-white rounded-2xl hover:bg-blue-700 shadow-md transition-all flex items-center justify-center text-2xl shadow-apex-blue/20";
+        clearInterval(timer);
+    }
 
-        function togglePlay() {
-            if (isPlaying) {
-                pauseReading();
-            } else {
-                playReading();
-            }
-        }
-
-        // --- SISTEMA DE PERSISTENCIA (LOCALSTORAGE) ---
-        function completarEntrenamiento() {
-            const ppmActiva = parseInt(ppmSlider.value);
-            const maxPpm = localStorage.getItem('apex_ritmo_enfoque') || 200;
-            if (ppmActiva > parseInt(maxPpm)) {
-                localStorage.setItem('apex_ritmo_enfoque', ppmActiva);
-            }
-
-            let minutos = parseInt(localStorage.getItem('apex_minutos_totales') || 0);
-            minutos += 1;
-            localStorage.setItem('apex_minutos_totales', minutos);
-
-            localStorage.setItem('apex_retencion_cognitiva', 85); // Puntuación promedio de práctica
-
-            let racha = parseInt(localStorage.getItem('apex_focus_streak') || 0);
-            if (racha === 0) racha = 1;
-            localStorage.setItem('apex_focus_streak', racha + 1);
-
-            alert("⚡ ¡Entrenamiento de hoy completado con éxito! Tus estadísticas de rendimiento han sido grabadas en tu perfil de APEX.");
-        }
-
-        function updateWordCount() {
-            const count = words.filter(w => w.trim().length > 0).length;
-            wordCountDisplay.textContent = `${count} palabras cargadas`;
-        }
-
-        // --- MODO OSCURO ---
-        function aplicarModoOscuro(isDark) {
-            if (isDark) {
-                htmlElement.classList.add('dark');
-                darkIcon.className = "fas fa-sun text-lg text-yellow-400";
-                localStorage.setItem('apex_dark_mode', 'enabled');
-            } else {
-                htmlElement.classList.remove('dark');
-                darkIcon.className = "fas fa-moon text-lg text-slate-500";
-                localStorage.setItem('apex_dark_mode', 'disabled');
-            }
-        }
-
-        // --- EVENTOS ---
-        btnPlay.addEventListener('click', togglePlay);
-
-        btnReset.addEventListener('click', () => {
+    function togglePlay() {
+        if (isPlaying) {
             pauseReading();
-            currentIndex = 0;
-            renderWord();
-            readingProgress.style.width = "0%";
-        });
-
-        btnRewind.addEventListener('click', () => {
-            pauseReading();
-            currentIndex = Math.max(0, currentIndex - 10);
-            renderWord();
-        });
-
-        ppmSlider.addEventListener('input', (e) => {
-            const val = e.target.value;
-            ppmDisplay.textContent = `${val} PPM`;
-            if (isPlaying) {
-                pauseReading();
-                playReading();
-            }
-        });
-
-        btnLoadText.addEventListener('click', () => {
-            const text = inputText.value.trim();
-            if (text.length > 0) {
-                pauseReading();
-                words = text.split(/\s+/);
-                currentIndex = 0;
-                updateWordCount();
-                renderWord();
-                alert("📝 ¡Texto cargado exitosamente en tu Simulador APEX!");
-            }
-        });
-
-        btnModeRsvp.addEventListener('click', () => {
-            pauseReading();
-            currentMode = 'rsvp';
-            btnModeRsvp.className = "px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm";
-            btnModeColumn.className = "px-4 py-2 rounded-lg font-bold text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue";
-            rsvpScreen.classList.remove('hidden');
-            columnScreen.classList.add('hidden');
-            currentIndex = 0;
-            renderWord();
-        });
-
-        btnModeColumn.addEventListener('click', () => {
-            pauseReading();
-            currentMode = 'column';
-            btnModeColumn.className = "px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm";
-            btnModeRsvp.className = "px-4 py-2 rounded-lg font-bold text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue";
-            rsvpScreen.classList.add('hidden');
-            columnScreen.classList.remove('hidden');
-            currentIndex = 0;
-            renderWord();
-        });
-
-        const fontClasses = ["text-base", "text-lg", "text-xl", "text-3xl", "text-5xl", "text-7xl"];
-        btnZoomIn.addEventListener('click', () => {
-            if (currentFontSize < 5) {
-                currentFontSize++;
-                adjustFontClass();
-            }
-        });
-
-        btnZoomOut.addEventListener('click', () => {
-            if (currentFontSize > 0) {
-                currentFontSize--;
-                adjustFontClass();
-            }
-        });
-
-        function adjustFontClass() {
-            rsvpWordContainer.className = `font-black tracking-wide rsvp-word py-6 select-none text-center ${fontClasses[currentFontSize + 1]}`;
-            colLeft.className = `text-right text-slate-500 dark:text-slate-400 font-extrabold transition-all truncate ${fontClasses[currentFontSize]}`;
-            colRight.className = `text-left text-slate-500 dark:text-slate-400 font-extrabold transition-all truncate ${fontClasses[currentFontSize]}`;
-        }
-
-        // Modo oscuro inicial
-        const currentSetting = localStorage.getItem('apex_dark_mode');
-        if (currentSetting === 'enabled') {
-            aplicarModoOscuro(true);
         } else {
-            aplicarModoOscuro(false);
+            playReading();
+        }
+    }
+
+    // --- SISTEMA AUTOMATIZADO: RUTINA DE 10 MINUTOS ---
+    function start10MinRoutine() {
+        isRoutineActive = true;
+        routineStage = 1;
+        secondsRemaining = 180;
+
+        routineBanner.classList.remove('hidden');
+        btnStartRoutine.className = "bg-red-500 text-white font-black px-4 py-2.5 rounded-xl shadow-lg hover:scale-[1.02] transition-all text-xs flex items-center gap-1.5";
+        btnStartRoutine.innerHTML = `<i class="fas fa-stop"></i> Detener Rutina`;
+
+        playTone(880, 0.4);
+        setTimeout(() => playTone(1200, 0.3), 150);
+
+        activateMode(1);
+        currentIndex = 0;
+        render();
+        playReading();
+
+        routineTimer = setInterval(() => {
+            secondsRemaining--;
+
+            const mins = Math.floor(secondsRemaining / 60);
+            const secs = secondsRemaining % 60;
+            routineCountdown.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            if (secondsRemaining <= 0) {
+                transitionRoutineStage();
+            }
+        }, 1000);
+    }
+
+    function transitionRoutineStage() {
+        pauseReading();
+        playTone(600, 0.3);
+
+        if (routineStage === 1) {
+            routineStage = 2;
+            secondsRemaining = 180;
+            routineStageName.textContent = "Etapa 2 (Columnas)";
+            activateMode(2);
+            currentIndex = 0;
+            render();
+            playReading();
+        } else if (routineStage === 2) {
+            routineStage = 3;
+            secondsRemaining = 240;
+            routineStageName.textContent = "Etapa 3 (Centro)";
+            activateMode(3);
+            currentIndex = 0;
+            render();
+            playReading();
+        } else if (routineStage === 3) {
+            stopRoutine();
+            completarEntrenamiento();
+        }
+    }
+
+    function stopRoutine() {
+        isRoutineActive = false;
+        clearInterval(routineTimer);
+        routineBanner.classList.add('hidden');
+        btnStartRoutine.className = "bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black px-4 py-2.5 rounded-xl shadow-lg shadow-orange-500/20 hover:scale-[1.02] transition-all text-xs flex items-center gap-1.5";
+        btnStartRoutine.innerHTML = `<i class="fas fa-stopwatch animate-pulse"></i> Rutina 10 Minutos`;
+        pauseReading();
+    }
+
+    // --- SISTEMA DE PERSISTENCIA ---
+    function completarEntrenamiento() {
+        const ppmActiva = parseInt(mainSlider.value);
+        const maxPpm = localStorage.getItem('apex_ritmo_enfoque') || 200;
+        if (ppmActiva > parseInt(maxPpm)) {
+            localStorage.setItem('apex_ritmo_enfoque', ppmActiva);
         }
 
-        darkToggle.addEventListener('click', () => {
-            const isDark = htmlElement.classList.contains('dark');
-            aplicarModoOscuro(!isDark);
-        });
+        let minutos = parseInt(localStorage.getItem('apex_minutos_totales') || 0);
+        minutos += isRoutineActive ? 10 : 3;
+        localStorage.setItem('apex_minutos_totales', minutos);
 
-        renderWord();
-    </script>
-</body>
-</html>
+        let racha = parseInt(localStorage.getItem('apex_focus_streak') || 0);
+        if (racha === 0) racha = 1;
+        localStorage.setItem('apex_focus_streak', racha + 1);
+
+        playTone(987.77, 0.2);
+        setTimeout(() => playTone(1318.51, 0.4), 100);
+
+        alert("⚡ ¡Felicidades! Entrenamiento neuromuscular completado. Tu Focus Streak y Ritmo de Enfoque han sido guardados exitosamente.");
+
+        if (isRoutineActive) {
+            stopRoutine();
+        }
+    }
+
+    function updateWordCount() {
+        const count = words.filter(w => w.trim().length > 0).length;
+        wordCountDisplay.textContent = `${count} palabras cargadas`;
+    }
+
+    // --- CONTROLADORES DE INTERFAZ ---
+    function activateMode(modeId) {
+        pauseReading();
+        currentMode = modeId;
+        currentIndex = 0;
+
+        btnMode1.className = modeId === 1 ? "px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm" : "px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue";
+        btnMode2.className = modeId === 2 ? "px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm" : "px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue";
+        btnMode3.className = modeId === 3 ? "px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all bg-white dark:bg-slate-900 text-apex-blue dark:text-apex-cyan shadow-sm" : "px-3 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs transition-all text-slate-600 dark:text-slate-400 hover:text-apex-blue";
+
+        et1Screen.className = modeId === 1 ? "flex flex-col items-center justify-center w-full" : "hidden";
+        et2Screen.className = modeId === 2 ? "w-full max-w-2xl mx-auto flex flex-col items-center justify-center py-4" : "hidden";
+        et3Screen.className = modeId === 3 ? "w-full max-w-xl mx-auto flex flex-col items-center justify-center py-4" : "hidden";
+
+        render();
+    }
+
+    mainSlider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        sliderDisplay.textContent = `${val} PPM`;
+        if (isPlaying) {
+            pauseReading();
+            playReading();
+        }
+    });
+
+    separationSlider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        separationDisplay.textContent = `${val}px`;
+        et2ColumnsContainer.style.gap = `${val}px`;
+    });
+
+    et2ColumnsContainer.style.gap = `${separationSlider.value}px`;
+
+    btnPlay.addEventListener('click', togglePlay);
+
+    btnReset.addEventListener('click', () => {
+        pauseReading();
+        currentIndex = 0;
+        render();
+        readingProgress.style.width = "0%";
+    });
+
+    btnRewind.addEventListener('click', () => {
+        pauseReading();
+        currentIndex = Math.max(0, currentIndex - (currentMode === 2 ? 10 : 5));
+        render();
+    });
+
+    btnLoadText.addEventListener('click', () => {
+        const text = inputText.value.trim();
+        if (text.length > 0) {
+            pauseReading();
+            words = text.split(/\s+/);
+            currentIndex = 0;
+            updateWordCount();
+            render();
+            alert("📝 ¡Texto cargado exitosamente en tus entrenadores oculares APEX!");
+        }
+    });
+
+    btnMode1.addEventListener('click', () => { if(!isRoutineActive) activateMode(1); });
+    btnMode2.addEventListener('click', () => { if(!isRoutineActive) activateMode(2); });
+    btnMode3.addEventListener('click', () => { if(!isRoutineActive) activateMode(3); });
+
+    btnStartRoutine.addEventListener('click', () => {
+        if (isRoutineActive) {
+            stopRoutine();
+        } else {
+            start10MinRoutine();
+        }
+    });
+
+    const fontClasses = ["text-sm", "text-base", "text-lg", "text-xl", "text-2xl", "text-3xl"];
+    btnZoomIn.addEventListener('click', () => {
+        if (currentFontSize < 5) {
+            currentFontSize++;
+            adjustFontClass();
+        }
+    });
+
+    btnZoomOut.addEventListener('click', () => {
+        if (currentFontSize > 0) {
+            currentFontSize--;
+            adjustFontClass();
+        }
+    });
+
+    function adjustFontClass() {
+        et2Left.className = `w-1/2 text-right text-slate-500 dark:text-slate-400 font-extrabold pr-4 truncate transition-all ${fontClasses[currentFontSize]}`;
+        et2Right.className = `w-1/2 text-left text-slate-500 dark:text-slate-400 font-extrabold pl-4 truncate transition-all ${fontClasses[currentFontSize]}`;
+    }
+
+    function aplicarModoOscuro(isDark) {
+        if (isDark) {
+            htmlElement.classList.add('dark');
+            darkIcon.className = "fas fa-sun text-lg text-yellow-400";
+            localStorage.setItem('apex_dark_mode', 'enabled');
+        } else {
+            htmlElement.classList.remove('dark');
+            darkIcon.className = "fas fa-moon text-lg text-slate-500";
+            localStorage.setItem('apex_dark_mode', 'disabled');
+        }
+    }
+
+    const currentSetting = localStorage.getItem('apex_dark_mode');
+    if (currentSetting === 'enabled') {
+        aplicarModoOscuro(true);
+    } else {
+        aplicarModoOscuro(false);
+    }
+
+    darkToggle.addEventListener('click', () => {
+        const isDark = htmlElement.classList.contains('dark');
+        aplicarModoOscuro(!isDark);
+    });
+
+    render();
+</script>
